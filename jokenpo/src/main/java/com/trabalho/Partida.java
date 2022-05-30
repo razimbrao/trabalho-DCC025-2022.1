@@ -1,21 +1,20 @@
 package com.trabalho;
-import java.util.*;
 
 public class Partida {
-    private Jogador jogador1;
-    private Jogador jogador2;
+    private Jogador j1;
+    private Jogador j2;
     private int pontuacaoJ1;
     private int pontuacaoJ2;
     private Jogador vencedor;
 
     public Partida(Jogador j1, Jogador j2){
-        this.jogador1 = j1;
-        this.jogador2 = j2;
+        this.j1 = j1;
+        this.j2 = j2;
         pontuacaoJ1 = 0;
         pontuacaoJ2 = 0;
     }
 
-    public Jogador simulador(Jogador j1, Jogador j2){
+    public Jogador simulador(){
         // Cria loop do melhor de três
         
         int i = 0;

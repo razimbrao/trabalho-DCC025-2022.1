@@ -16,7 +16,7 @@ public final class App {
         Jogador Carlitos = new Jogador("Carlitos");
         Jogador Bob = new Jogador("Bob");
         Partida teste = new Partida(Carlitos, Bob);
-        Jogador vencedor = teste.simulador(Carlitos, Bob);
+        Jogador vencedor = teste.simulador();
         
         
         //teste de commit livia
