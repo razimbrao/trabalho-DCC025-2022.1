@@ -114,8 +114,7 @@ public class Partida {
                     pontuacaoJ2++;
                     break;                     
                 default:
-                    System.out.println("Erro");
-                    System.out.println(pontuacaoJ1 + " " + pontuacaoJ2);
+                    System.out.println("Empate");
             }
                 
             i++;
