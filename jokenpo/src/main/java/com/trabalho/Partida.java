@@ -6,6 +6,8 @@ public class Partida {
     private int pontuacaoJ1;
     private int pontuacaoJ2;
     private Jogador vencedor;
+    private Jogador perdedor;
+    private int id;
 
     public Partida(Jogador j1, Jogador j2){
         this.j1 = j1;
@@ -122,10 +124,12 @@ public class Partida {
         if(pontuacaoJ1 > pontuacaoJ2)
         {
             vencedor = j1;
+            perdedor = j2;
         }
         else
         {
             vencedor = j2;
+            perdedor = j1;
         }
         
         System.out.println("O vencedor eh " + vencedor.getNome());
@@ -136,5 +140,13 @@ public class Partida {
 
     public void imprimePlacar(){
         System.out.println(this.pontuacaoJ1 + " x " + this.pontuacaoJ2);
+    }
+
+    public void setId(int x){
+        this.id=x;
+    }
+    
+    public int getId(){
+        return this.id;
     }
 }
