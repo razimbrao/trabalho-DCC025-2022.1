@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Campeonato {
     private int tamanhoInicial;
-    private int tamanhoAtual = (this.listaPartidas.size())+1;
+    private int tamanhoAtual;
     private int nJogadores;
-    private int iPartidas;
+    private int indexPartidas;
     private List<Jogador> listaJogadores = new ArrayList<>();
     private List<Partida> listaPartidas = new ArrayList<>();
     private List<Partida> asaEsquerda = new ArrayList<>();
@@ -44,18 +44,17 @@ public class Campeonato {
 
     public void addPartida(Partida x){
         this.listaPartidas.add(x);
-        this.iPartidas++;
-        int id = this.iPartidas-1;
+        this.indexPartidas++;
+        int id = this.indexPartidas-1;
         x.setId(id);
     }
 
     public void removePartida(Partida x)
     {
-        int index=x.getId();
-        this.listaPartidas.remove(index);
+        this.listaPartidas.remove(x.getId());
     }
 
-    public void insereJogadores(){
+    public void insereJogadores(){ //teste 
         Jogador Rafael = new Jogador("Rafael");
         Jogador Vidal = new Jogador("Vidal");
         Jogador Vitin = new Jogador("Vitin");
@@ -66,7 +65,7 @@ public class Campeonato {
         addJogador(Cacho);
     }
 
-    public void inserePartidas() {
+    public void inserePartidas(){ // teste
         Partida p1 = new Partida(listaJogadores.get(0), listaJogadores.get(1));
         Partida p2 = new Partida(listaJogadores.get(2), listaJogadores.get(3));
         addPartida(p1);
@@ -81,7 +80,6 @@ public class Campeonato {
                 asaEsquerda.add(this.listaPartidas.get(i));
             for(int i=4; i<8; i++)
                 asaDireita.add(this.listaPartidas.get(i));
-
         }else if(this.tamanhoInicial==4){
             //quartas
             for(int i=0; i<2; i++)
@@ -97,18 +95,36 @@ public class Campeonato {
     }
 
     public void resolveNivel(){
+        this.tamanhoAtual=this.listaPartidas.size();
         if(this.tamanhoAtual==8){
             //OITAVAS
+    
+        }
 
-        }else if(this.tamanhoAtual==4){
+        if(this.tamanhoAtual==4){
             //QUARTAS
 
-        }else if(this.tamanhoAtual==2){
-            //SEMI
+        }
 
-        }else if(this.tamanhoAtual==1){
+        if(this.tamanhoAtual==2){
+            //SEMI
+            Jogador vencedorEsq = asaEsquerda.get(0).simulador();
+            removeJogador(asaEsquerda.get(0).getPerdedor());
+            System.out.println("Jogador " +vencedorEsq.getNome() + "avança para a final.");
+            removePartida(asaEsquerda.get(0));
+
+            Jogador vencedorDir = asaDireita.get(0).simulador();
+            removeJogador(asaDireita.get(0).getPerdedor());
+            System.out.println("Jogador " +vencedorDir.getNome() + "avança para a final.");
+            removePartida(asaDireita.get(0));
+            this.tamanhoAtual=this.listaPartidas.size();
+        }
+        if(this.tamanhoAtual==0){
             //FINAL
-            
+            Jogador j1 = asaEsquerda.get(0).getVencedor(), j2 = asaDireita.get(0).getVencedor();    
+            Partida f = new Partida(j1, j2);
+            f.simulador();
+            f.imprimePlacar();
         }
     }
 }

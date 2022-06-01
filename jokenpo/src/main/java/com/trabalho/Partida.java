@@ -123,13 +123,13 @@ public class Partida {
           
         if(pontuacaoJ1 > pontuacaoJ2)
         {
-            vencedor = j1;
-            perdedor = j2;
+            this.vencedor = j1;
+            this.perdedor = j2;
         }
         else
         {
-            vencedor = j2;
-            perdedor = j1;
+            this.vencedor = j2;
+            this.perdedor = j1;
         }
         
         System.out.println("O vencedor eh " + vencedor.getNome());
@@ -148,5 +148,11 @@ public class Partida {
     
     public int getId(){
         return this.id;
+    }
+    public Jogador getPerdedor(){
+        return this.perdedor;
+    }
+    public Jogador getVencedor(){
+        return this.vencedor;
     }
 }

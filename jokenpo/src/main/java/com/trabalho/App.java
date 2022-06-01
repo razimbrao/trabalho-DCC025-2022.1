@@ -13,10 +13,10 @@ public final class App {
      */
     public static void main(String[] args) {
          
-        Jogador Carlitos = new Jogador("Carlitos");
-        Jogador Bob = new Jogador("Bob");
-        Partida teste = new Partida(Carlitos, Bob);
-        Jogador vencedor = teste.simulador();
+        Campeonato liberta = new Campeonato(2);
+        liberta.insereJogadores();
+        liberta.chaveamento();
+        liberta.resolveNivel();
         
         
         //teste de commit livia
