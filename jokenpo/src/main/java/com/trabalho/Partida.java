@@ -155,4 +155,11 @@ public class Partida {
     public Jogador getVencedor(){
         return this.vencedor;
     }
+
+    public Jogador getJ1(){
+        return this.j1;
+    }
+    public Jogador getJ2(){
+        return this.j2;
+    }
 }
