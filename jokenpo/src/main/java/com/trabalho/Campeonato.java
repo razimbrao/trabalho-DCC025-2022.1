@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Campeonato {
-    private int tamanhoInicial;
-    private int tamanhoAtual;
+    private int tamanho;
     private int nJogadores;
     public int indexPartidas;
     private List<Jogador> listaJogadores = new ArrayList<>();
     private List<Partida> listaPartidas = new ArrayList<>();
+    private List<Jogador> listaJogadoresAux = new ArrayList<>();
+
     public List<Partida> asaEsquerdaOitavas = new ArrayList<>();
     public List<Partida> asaDireitaOitavas = new ArrayList<>();
     public List<Partida> asaEsquerdaQuartas = new ArrayList<>();
@@ -19,19 +20,18 @@ public class Campeonato {
 
     public Campeonato(int n){
         if(n==8 || n==4 || n==2){
-            this.tamanhoInicial = n;
-            this.tamanhoAtual=n;
+            this.tamanho = n;
         }
         else{
             System.out.println("ERRO: Número de partidas inválidas!");
             System.exit(0);
         }
-        if(this.tamanhoInicial==8){
+        if(this.tamanho==8){
             System.out.println("Oitavas de final criada!");
-        }else if(this.tamanhoInicial==4){
+        }else if(this.tamanho==4){
             System.out.println("Quartas de final criada!");
 
-        }else if(this.tamanhoInicial==2)
+        }else if(this.tamanho==2)
             System.out.println("Semi finais criadas!");
     }
 
@@ -48,13 +48,6 @@ public class Campeonato {
         this.listaJogadores.remove(index);
     }
 
-    /*public void addPartida(Partida x){ antiga
-        this.listaPartidas.add(x);
-        this.indexPartidas++;
-        int id = this.indexPartidas-1;
-        x.setId(id);
-    } */
-
     public void addPartida(Jogador j1, Jogador j2) {
         Partida aux = new Partida(j1, j2);
         aux.setId(indexPartidas);
@@ -68,45 +61,25 @@ public class Campeonato {
     }
 
     public void insereJogadores(){ //teste 
-        Jogador Rafael = new Jogador("Rafael");
-        Jogador Vidal = new Jogador("Vidal");
-        Jogador Vitin = new Jogador("Vitin");
-        Jogador Cacho = new Jogador("Cacho");
+        Jogador Rafael = new Jogador("Rafael"); addJogador(Rafael);
+        Jogador Vidal = new Jogador("Vidal"); addJogador(Vidal);
+        Jogador Vitin = new Jogador("Vitin"); addJogador(Vitin);
+        Jogador Cacho = new Jogador("Cacho"); addJogador(Cacho);
 
-        Jogador Livia = new Jogador("Livia");
-        Jogador Luisa = new Jogador("Luisa");
-        Jogador Caua = new Jogador("Caua");
-        Jogador Luis = new Jogador("Luis");
+        Jogador Livia = new Jogador("Livia"); addJogador(Livia);
+        Jogador Luisa = new Jogador("Luisa"); addJogador(Luisa);
+        Jogador Caua = new Jogador("Caua"); addJogador(Caua);
+        Jogador Luis = new Jogador("Luis"); addJogador(Luis);
+        
+        Jogador Pablo = new Jogador("Pablo"); addJogador(Pablo);
+        Jogador Miguel = new Jogador("Miguel"); addJogador(Miguel);
+        Jogador Tiago = new Jogador("Tiago"); addJogador(Tiago);
+        Jogador Hansel = new Jogador("Hansel"); addJogador(Hansel);
 
-        Jogador Pablo = new Jogador("Pablo");
-        Jogador Miguel = new Jogador("Miguel");
-        Jogador Tiago = new Jogador("Tiago");
-        Jogador Hansel = new Jogador("Hansel");
-
-        Jogador Guigui = new Jogador("Guigui");
-        Jogador JK = new Jogador("JK");
-        Jogador Froes = new Jogador("Froes");
-        Jogador Gleiph = new Jogador("Gleiph");
-
-        addJogador(Rafael);
-        addJogador(Vidal);
-        addJogador(Vitin);
-        addJogador(Cacho);
-
-/*         addJogador(Livia);
-        addJogador(Luisa);
-        addJogador(Caua);
-        addJogador(Luis);
-
-        addJogador(Pablo);
-        addJogador(Miguel);
-        addJogador(Tiago);
-        addJogador(Hansel);
-
-        addJogador(Guigui);
-        addJogador(JK);
-        addJogador(Froes);
-        addJogador(Gleiph); */
+        Jogador Guigui = new Jogador("Guigui"); addJogador(Guigui);
+        Jogador JK = new Jogador("JK"); addJogador(JK);
+        Jogador Froes = new Jogador("Froes"); addJogador(Froes);
+        Jogador Gleiph = new Jogador("Gleiph"); addJogador(Gleiph);
     }
 
     public void inserePartidas(){
@@ -130,21 +103,21 @@ public class Campeonato {
     }
 
     public void chaveamento(){ 
-        if(this.tamanhoInicial==8){
+        if(this.tamanho==8){
             //oitavas
             for(int i=0; i<4; i++)
                 asaEsquerdaOitavas.add(this.listaPartidas.get(i));
             for(int i=4; i<8; i++)
                 asaDireitaOitavas.add(this.listaPartidas.get(i));
 
-        }else if(this.tamanhoInicial==4){
+        }else if(this.tamanho==4){
             //quartas
             for(int i=0; i<2; i++)
                 asaEsquerdaQuartas.add(this.listaPartidas.get(i));
             for(int i=2; i<4; i++)
                 asaDireitaQuartas.add(this.listaPartidas.get(i));
 
-        }else if(this.tamanhoInicial==2){
+        }else if(this.tamanho==2){
             //semi
                 asaEsquerdaSemi.add(this.listaPartidas.get(0));
                 asaDireitaSemi.add(this.listaPartidas.get(1));
@@ -153,7 +126,7 @@ public class Campeonato {
     }
 
     public void printChaveamento() {
-        if(this.tamanhoAtual==8){
+        if(this.tamanho==8){
             System.out.println("---- OITAVAS DE FINAL ----- \n");
             System.out.println("ASA ESQUERDA:");
             printAsa(asaEsquerdaOitavas);
@@ -162,7 +135,7 @@ public class Campeonato {
             System.out.println("ASA DIREITA:");
             printAsa(asaDireitaOitavas);
         }
-        else if(this.tamanhoAtual==4){
+        if(this.tamanho==4){
             System.out.println("---- QUARTAS DE FINAL -----\n");
             System.out.println("ASA ESQUERDA:");
             printAsa(asaEsquerdaQuartas);
@@ -171,7 +144,7 @@ public class Campeonato {
             System.out.println("ASA DIREITA:");
             printAsa(asaDireitaQuartas);
         }
-        else if(this.tamanhoAtual==2){
+        if(this.tamanho==2){
             System.out.println("---- SEMIFINAIS ----- \n");
             System.out.println("ASA ESQUERDA:");
             printAsa(asaEsquerdaSemi);
@@ -188,38 +161,99 @@ public class Campeonato {
     }
 
     public void resolveNivel(){
-        this.tamanhoAtual=this.listaPartidas.size();
-        if(this.tamanhoAtual==8){
+        this.tamanho=this.listaPartidas.size();
+        if(this.tamanho==8){
             //OITAVAS
-            
+            Jogador v1 = asaEsquerdaOitavas.get(0).simulador();
+            listaJogadoresAux.add(v1);
+            System.out.println("Jogador " + v1.getNome() + " avança para as quartas de final.");
+
+            Jogador v2 = asaEsquerdaOitavas.get(1).simulador();
+            listaJogadoresAux.add(v2);
+
+            System.out.println("Jogador " + v2.getNome() + " avança para as quartas de final.");
+
+            Jogador v3 = asaEsquerdaOitavas.get(2).simulador();
+            removeJogador(asaEsquerdaOitavas.get(2).getPerdedor());
+            listaJogadoresAux.add(v3);
+            System.out.println("Jogador " + v3.getNome() + " avança para as quartas de final.");
+
+            Jogador v4 = asaEsquerdaOitavas.get(3).simulador();
+            listaJogadoresAux.add(v4);
+            System.out.println("Jogador " + v4.getNome() + " avança para as quartas de final.");
+
+            Jogador v5 = asaDireitaOitavas.get(0).simulador();
+            listaJogadoresAux.add(v5);
+            System.out.println("Jogador " + v5.getNome() + " avança para as quartas de final.");
+
+            Jogador v6 = asaDireitaOitavas.get(1).simulador();
+            listaJogadoresAux.add(v6);
+            System.out.println("Jogador " + v6.getNome() + " avança para as quartas de final.");
+
+            Jogador v7 = asaDireitaOitavas.get(2).simulador();
+            listaJogadoresAux.add(v7);
+            System.out.println("Jogador " + v7.getNome() + " avança para as quartas de final.");
+
+            Jogador v8 = asaDireitaOitavas.get(3).simulador();
+            listaJogadoresAux.add(v8);
+            System.out.println("Jogador " + v8.getNome() + " avança para as quartas de final.");
+
+
+            listaJogadores.clear();
+            listaPartidas.clear();
+            listaJogadores = new ArrayList<>(listaJogadoresAux);
+            listaJogadoresAux.clear();
+            inserePartidas();
+
+            this.tamanho=4;
+            chaveamento();
         }
 
-        if(this.tamanhoAtual==4){
+        if(this.tamanho==4){
             //QUARTAS
-            
-        }
+            Jogador v1 = asaEsquerdaQuartas.get(0).simulador();
+            listaJogadoresAux.add(v1);
+            System.out.println("Jogador " + v1.getNome() + " avança para as semifinais.");
 
-        if(this.tamanhoAtual==2){
+            Jogador v2 = asaEsquerdaQuartas.get(1).simulador();
+            listaJogadoresAux.add(v2);
+            System.out.println("Jogador " + v2.getNome() + " avança para as semifinais.");
+
+            Jogador v3 = asaDireitaQuartas.get(0).simulador();
+            listaJogadoresAux.add(v3);
+            System.out.println("Jogador " + v3.getNome() + " avança para as semifinais.");
+
+            Jogador v4 = asaDireitaQuartas.get(1).simulador();
+            listaJogadoresAux.add(v4);
+            System.out.println("Jogador " + v4.getNome() + " avança para as semifinais.");
+
+            listaJogadores.clear();
+            listaPartidas.clear();
+            listaJogadores = new ArrayList<>(listaJogadoresAux);
+            inserePartidas();
+            this.tamanho=2;
+            chaveamento(); 
+        } 
+
+        if(this.tamanho==2){
             //SEMI
-            Jogador vencedorEsq = asaEsquerdaSemi.get(0).simulador();
-            removeJogador(asaEsquerdaSemi.get(0).getPerdedor());
-            asaEsquerdaSemi.get(0).imprimePlacar();
-            System.out.println("Jogador " +vencedorEsq.getNome() + " avança para a final.");
+            Jogador v1 = asaEsquerdaSemi.get(0).simulador();
+            listaJogadoresAux.add(v1);
+            System.out.println("Jogador " +v1.getNome() + " avança para a final.");
 
-            Jogador vencedorDir = asaDireitaSemi.get(0).simulador();
-            removeJogador(asaDireitaSemi.get(0).getPerdedor());
-            asaDireitaSemi.get(0).imprimePlacar();
-            System.out.println("Jogador " + vencedorDir.getNome() + " avança para a final.");
-            this.tamanhoAtual=0;
+            Jogador v2 = asaDireitaSemi.get(0).simulador();
+            listaJogadoresAux.add(v2);
+            System.out.println("Jogador " + v2.getNome() + " avança para a final.");
+            this.tamanho=0;
         }
 
-        if(this.tamanhoAtual==0){
+        if(this.tamanho==0){
             //FINAL
             Jogador j1 = asaEsquerdaSemi.get(0).getVencedor(), j2 = asaDireitaSemi.get(0).getVencedor();    
             Partida f = new Partida(j1, j2);
             Jogador campeao = f.simulador();
             System.out.println(campeao.getNome() + " venceu o campeonato!");
-            
-        }
+    
+        } 
     }
 }
