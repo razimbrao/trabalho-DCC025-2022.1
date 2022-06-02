@@ -10,8 +10,12 @@ public class Campeonato {
     public int indexPartidas;
     private List<Jogador> listaJogadores = new ArrayList<>();
     private List<Partida> listaPartidas = new ArrayList<>();
-    public List<Partida> asaEsquerda = new ArrayList<>();
-    public List<Partida> asaDireita = new ArrayList<>();
+    public List<Partida> asaEsquerdaOitavas = new ArrayList<>();
+    public List<Partida> asaDireitaOitavas = new ArrayList<>();
+    public List<Partida> asaEsquerdaQuartas = new ArrayList<>();
+    public List<Partida> asaDireitaQuartas = new ArrayList<>();
+    public List<Partida> asaEsquerdaSemi = new ArrayList<>();
+    public List<Partida> asaDireitaSemi = new ArrayList<>();
 
     public Campeonato(int n){
         if(n==8 || n==4 || n==2){
@@ -89,7 +93,7 @@ public class Campeonato {
         addJogador(Vitin);
         addJogador(Cacho);
 
-        addJogador(Livia);
+/*         addJogador(Livia);
         addJogador(Luisa);
         addJogador(Caua);
         addJogador(Luis);
@@ -102,7 +106,7 @@ public class Campeonato {
         addJogador(Guigui);
         addJogador(JK);
         addJogador(Froes);
-        addJogador(Gleiph);
+        addJogador(Gleiph); */
     }
 
     public void inserePartidas(){
@@ -129,43 +133,58 @@ public class Campeonato {
         if(this.tamanhoInicial==8){
             //oitavas
             for(int i=0; i<4; i++)
-                asaEsquerda.add(this.listaPartidas.get(i));
+                asaEsquerdaOitavas.add(this.listaPartidas.get(i));
             for(int i=4; i<8; i++)
-                asaDireita.add(this.listaPartidas.get(i));
+                asaDireitaOitavas.add(this.listaPartidas.get(i));
 
         }else if(this.tamanhoInicial==4){
             //quartas
             for(int i=0; i<2; i++)
-                asaEsquerda.add(this.listaPartidas.get(i));
+                asaEsquerdaQuartas.add(this.listaPartidas.get(i));
             for(int i=2; i<4; i++)
-                asaDireita.add(this.listaPartidas.get(i));
+                asaDireitaQuartas.add(this.listaPartidas.get(i));
 
         }else if(this.tamanhoInicial==2){
             //semi
-                asaEsquerda.add(this.listaPartidas.get(0));
-                asaDireita.add(this.listaPartidas.get(1));
+                asaEsquerdaSemi.add(this.listaPartidas.get(0));
+                asaDireitaSemi.add(this.listaPartidas.get(1));
         }
         printChaveamento();
     }
 
     public void printChaveamento() {
-        if(this.tamanhoAtual==8)
-            System.out.println("---- OITAVAS DE FINAL -----");
-        else if(this.tamanhoAtual==4)
-            System.out.println("---- QUARTAS DE FINAL -----");
-        else if(this.tamanhoAtual==2)
-            System.out.println("---- SEMIFINAIS -----");
-
-        System.out.println();
-        System.out.println("ASA ESQUERDA:");
-        for (Partida p : asaEsquerda) 
+        if(this.tamanhoAtual==8){
+            System.out.println("---- OITAVAS DE FINAL ----- \n");
+            System.out.println("ASA ESQUERDA:");
+            printAsa(asaEsquerdaOitavas);
+            System.out.println("---------------------");
+            System.out.println();
+            System.out.println("ASA DIREITA:");
+            printAsa(asaDireitaOitavas);
+        }
+        else if(this.tamanhoAtual==4){
+            System.out.println("---- QUARTAS DE FINAL -----\n");
+            System.out.println("ASA ESQUERDA:");
+            printAsa(asaEsquerdaQuartas);
+            System.out.println("---------------------");
+            System.out.println();
+            System.out.println("ASA DIREITA:");
+            printAsa(asaDireitaQuartas);
+        }
+        else if(this.tamanhoAtual==2){
+            System.out.println("---- SEMIFINAIS ----- \n");
+            System.out.println("ASA ESQUERDA:");
+            printAsa(asaEsquerdaSemi);
+            System.out.println("---------------------");
+            System.out.println();
+            System.out.println("ASA DIREITA:");
+            printAsa(asaDireitaSemi);
+        }
+    }
+    public void printAsa(List<Partida> aux) {
+        for (Partida p : aux) 
             System.out.println("Partida " + (p.getId()+1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
         System.out.println();
-        System.out.println("----------------------------");
-        System.out.println();
-        System.out.println("ASA DIREITA:");
-        for (Partida p : asaDireita) 
-            System.out.println("Partida " + (p.getId()+1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
     }
 
     public void resolveNivel(){
@@ -182,23 +201,21 @@ public class Campeonato {
 
         if(this.tamanhoAtual==2){
             //SEMI
-            Jogador vencedorEsq = asaEsquerda.get(0).simulador();
-            removeJogador(asaEsquerda.get(0).getPerdedor());
-            asaEsquerda.get(0).imprimePlacar();
+            Jogador vencedorEsq = asaEsquerdaSemi.get(0).simulador();
+            removeJogador(asaEsquerdaSemi.get(0).getPerdedor());
+            asaEsquerdaSemi.get(0).imprimePlacar();
             System.out.println("Jogador " +vencedorEsq.getNome() + " avança para a final.");
-            //removePartida(asaEsquerda.get(0));
 
-            Jogador vencedorDir = asaDireita.get(0).simulador();
-            removeJogador(asaDireita.get(0).getPerdedor());
-            asaDireita.get(0).imprimePlacar();
+            Jogador vencedorDir = asaDireitaSemi.get(0).simulador();
+            removeJogador(asaDireitaSemi.get(0).getPerdedor());
+            asaDireitaSemi.get(0).imprimePlacar();
             System.out.println("Jogador " + vencedorDir.getNome() + " avança para a final.");
-            //removePartida(asaDireita.get(0));
             this.tamanhoAtual=0;
         }
 
         if(this.tamanhoAtual==0){
             //FINAL
-            Jogador j1 = asaEsquerda.get(0).getVencedor(), j2 = asaDireita.get(0).getVencedor();    
+            Jogador j1 = asaEsquerdaSemi.get(0).getVencedor(), j2 = asaDireitaSemi.get(0).getVencedor();    
             Partida f = new Partida(j1, j2);
             Jogador campeao = f.simulador();
             System.out.println(campeao.getNome() + " venceu o campeonato!");
