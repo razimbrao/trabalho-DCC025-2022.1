@@ -14,8 +14,10 @@ public class Campeonato {
     public List<Partida> asaDireita = new ArrayList<>();
 
     public Campeonato(int n){
-        if(n==8 || n==4 || n==2)
+        if(n==8 || n==4 || n==2){
             this.tamanhoInicial = n;
+            this.tamanhoAtual=n;
+        }
         else{
             System.out.println("ERRO: Número de partidas inválidas!");
             System.exit(0);
@@ -109,7 +111,6 @@ public class Campeonato {
             addPartida(listaJogadores.get(i), listaJogadores.get(j));
             j--;
         }
-        
     }
 
     public void printListaJogadores(){
@@ -125,7 +126,6 @@ public class Campeonato {
     }
 
     public void chaveamento(){ 
-        //int sizeLJ = this.listaJogadores.size();
         if(this.tamanhoInicial==8){
             //oitavas
             for(int i=0; i<4; i++)
@@ -137,7 +137,7 @@ public class Campeonato {
             //quartas
             for(int i=0; i<2; i++)
                 asaEsquerda.add(this.listaPartidas.get(i));
-            for(int i=4; i<4; i++)
+            for(int i=2; i<4; i++)
                 asaDireita.add(this.listaPartidas.get(i));
 
         }else if(this.tamanhoInicial==2){
@@ -145,6 +145,27 @@ public class Campeonato {
                 asaEsquerda.add(this.listaPartidas.get(0));
                 asaDireita.add(this.listaPartidas.get(1));
         }
+        printChaveamento();
+    }
+
+    public void printChaveamento() {
+        if(this.tamanhoAtual==8)
+            System.out.println("---- OITAVAS DE FINAL -----");
+        else if(this.tamanhoAtual==4)
+            System.out.println("---- QUARTAS DE FINAL -----");
+        else if(this.tamanhoAtual==2)
+            System.out.println("---- SEMIFINAIS -----");
+
+        System.out.println();
+        System.out.println("ASA ESQUERDA:");
+        for (Partida p : asaEsquerda) 
+            System.out.println("Partida " + (p.getId()+1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
+        System.out.println();
+        System.out.println("----------------------------");
+        System.out.println();
+        System.out.println("ASA DIREITA:");
+        for (Partida p : asaDireita) 
+            System.out.println("Partida " + (p.getId()+1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
     }
 
     public void resolveNivel(){
