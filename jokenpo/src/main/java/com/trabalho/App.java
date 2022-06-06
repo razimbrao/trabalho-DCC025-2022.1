@@ -18,7 +18,5 @@ public final class App {
         camp.inserePartidas();
         camp.chaveamento();
         camp.resolveNivel();
-        
-
     }
 }
