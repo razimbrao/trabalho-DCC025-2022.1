@@ -37,7 +37,7 @@ public class Campeonato {
         this.listaJogadores.add(x);
         this.nJogadores++;
         int id = this.nJogadores-1;
-        x.setId(id);
+        x.setId(id); 
     }
 
     public void addPartida(Jogador j1, Jogador j2) { // add a partida na listaPartidas
