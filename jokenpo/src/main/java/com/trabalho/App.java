@@ -13,10 +13,10 @@ public final class App {
      */
     public static void main(String[] args) {
          
-        Campeonato liberta = new Campeonato(8);
-        liberta.insereJogadores();
-        liberta.inserePartidas();
-        liberta.chaveamento();
-        liberta.resolveNivel();
+        Campeonato camp = new Campeonato(2);
+        camp.insereJogadores();
+        camp.inserePartidas();
+        camp.chaveamento();
+        camp.resolveNivel();
     }
 }

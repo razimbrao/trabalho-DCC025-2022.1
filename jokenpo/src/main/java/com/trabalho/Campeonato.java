@@ -2,6 +2,7 @@ package com.trabalho;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Campeonato {
     private int tamanho;
@@ -46,7 +47,23 @@ public class Campeonato {
         this.listaPartidas.add(aux);
     }
 
-    public void insereJogadores(){ //teste => insere sozinho os jogadores na listaJogadores
+    public void insereJogadores(){ // => insere os jogadores na listaJogadores
+
+        Jogador vetJogador [] = new Jogador[tamanho*2];
+        Scanner sc = new Scanner(System.in);
+        String nome;
+        int i=0;
+        System.out.println("Insira " + tamanho*2 + " jogadores:");
+        for (Jogador j : vetJogador) {
+
+            System.out.println("Insira o nome do Jogador "+ (i+1) +": ");
+            nome = sc.nextLine();
+            j = new Jogador(nome);
+            addJogador(j);
+            i++;
+        }
+
+        /* teste
         Jogador Rafael = new Jogador("Rafael"); addJogador(Rafael);
         Jogador Vidal = new Jogador("Vidal"); addJogador(Vidal);
         Jogador Vitin = new Jogador("Vitin"); addJogador(Vitin);
@@ -65,7 +82,7 @@ public class Campeonato {
         Jogador Guigui = new Jogador("Guigui"); addJogador(Guigui);
         Jogador JK = new Jogador("JK"); addJogador(JK);
         Jogador Froes = new Jogador("Froes"); addJogador(Froes);
-        Jogador Gleiph = new Jogador("Gleiph"); addJogador(Gleiph);
+        Jogador Gleiph = new Jogador("Gleiph"); addJogador(Gleiph); */
     }
 
     public void inserePartidas(){ //pega a lista de jogadores e cria as partidas na listaPartidas
