@@ -1,17 +1,13 @@
 package com.trabalho;
 import javax.swing.JOptionPane;
 
-/**
- * Hello world!
- */
+// Rafael de Oliveira Zimbrão - 202165124A
+// Livia Ribeiro Pessamilio - 202165088A
+// João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 public final class App {
     private App() {
     }
-
-    /**
-     * Says hello to the world.
-     * @param args The arguments of the program.
-     */
+    
     public static void main(String[] args) {
         
         String[] opcoesTamanho = {"Dois níveis", "Quatro níveis" , "Oito níveis"};

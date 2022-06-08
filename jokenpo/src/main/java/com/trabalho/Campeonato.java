@@ -3,6 +3,9 @@ package com.trabalho;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+// Rafael de Oliveira Zimbrão - 202165124A
+// Livia Ribeiro Pessamilio - 202165088A
+// João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 
 public class Campeonato {
     private int tamanho;
@@ -62,27 +65,7 @@ public class Campeonato {
             addJogador(j);
             i++;
         }
-
-        /* teste
-        Jogador Rafael = new Jogador("Rafael"); addJogador(Rafael);
-        Jogador Vidal = new Jogador("Vidal"); addJogador(Vidal);
-        Jogador Vitin = new Jogador("Vitin"); addJogador(Vitin);
-        Jogador Cacho = new Jogador("Cacho"); addJogador(Cacho);
-
-        Jogador Livia = new Jogador("Livia"); addJogador(Livia);
-        Jogador Luisa = new Jogador("Luisa"); addJogador(Luisa);
-        Jogador Caua = new Jogador("Caua"); addJogador(Caua);
-        Jogador Luis = new Jogador("Luis"); addJogador(Luis);
-        
-        Jogador Pablo = new Jogador("Pablo"); addJogador(Pablo);
-        Jogador Miguel = new Jogador("Miguel"); addJogador(Miguel);
-        Jogador Tiago = new Jogador("Tiago"); addJogador(Tiago);
-        Jogador Hansel = new Jogador("Hansel"); addJogador(Hansel);
-
-        Jogador Guigui = new Jogador("Guigui"); addJogador(Guigui);
-        Jogador JK = new Jogador("JK"); addJogador(JK);
-        Jogador Froes = new Jogador("Froes"); addJogador(Froes);
-        Jogador Gleiph = new Jogador("Gleiph"); addJogador(Gleiph); */
+        sc.close();
     }
 
     public void inserePartidas(){ //pega a lista de jogadores e cria as partidas na listaPartidas
@@ -132,7 +115,6 @@ public class Campeonato {
 
             Jogador v2 = asaEsquerda.get(1).simulador();
             listaJogadoresAux.add(v2);
-
             System.out.println("Jogador " + v2.getNome() + " avança para as quartas de final.");
 
             Jogador v3 = asaEsquerda.get(2).simulador();
