@@ -4,6 +4,12 @@ public class Jogador {
     private String nome;
     private static int nJogadores;
     private int id;
+    
+    public int selecionaJogada()
+    {        
+        int jogada = 1;
+        return jogada;
+    }
 
     public String getNome() {
         return nome;

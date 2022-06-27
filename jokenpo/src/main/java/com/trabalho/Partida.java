@@ -19,7 +19,7 @@ public class Partida {
     public Jogador simulador(){
         // Cria loop do melhor de três
         
-        int i = 0;
+        int i = 0; 
         while(i < 3 || (pontuacaoJ1 == pontuacaoJ2))
         {
             String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
