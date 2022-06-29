@@ -8,6 +8,10 @@ package com.trabalho;
  *
  * @author lilik
  */
+
+// Rafael de Oliveira Zimbrão - 202165124A
+// Livia Ribeiro Pessamilio - 202165088A
+// João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 public class Bot extends Jogador {
 
     public Bot(String x) {

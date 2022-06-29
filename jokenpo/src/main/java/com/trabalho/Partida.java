@@ -28,8 +28,8 @@ public class Partida {
         {
             String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
             
-            int jogadaJ1 = (int)((0 + (5 - 0)) * Math.random());
-            int jogadaJ2 = (int)((0 + (5 - 0)) * Math.random());
+            int jogadaJ1 = j1.selecionaJogada();
+            int jogadaJ2 = j2.selecionaJogada();
             //String[] jogadas = {jogadaJ1, jogadaJ2};
             
             System.out.println(j1.getNome() + ": " + resultados[jogadaJ1] + " // " + j2.getNome() + ": " + resultados[jogadaJ2]);
