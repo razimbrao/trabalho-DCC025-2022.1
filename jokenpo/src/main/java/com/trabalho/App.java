@@ -10,12 +10,11 @@ public final class App {
     
     public static void main(String[] args) {
         
-        Usuario livota = new Usuario("Livota");
+        /*Usuario livota = new Usuario("Livota");
         Bot cgpGray = new Bot("CGP Gray");
         Partida teste = new Partida(livota, cgpGray);
-        teste.simulador();
+        teste.simulador(); */
         
-        /*
         String[] opcoesTamanho = {"Dois níveis", "Quatro níveis" , "Oito níveis"};
         int tamanho = JOptionPane.showOptionDialog(null, "Selecione o tamanho do campeonato desejado:", "Tamanho da partida"
                 ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesTamanho, opcoesTamanho[0]);
@@ -25,6 +24,5 @@ public final class App {
         camp.inserePartidas();
         camp.chaveamento();
         camp.resolveNivel();
-*/
     }
 }
