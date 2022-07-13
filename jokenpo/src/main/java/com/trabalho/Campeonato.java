@@ -1,5 +1,6 @@
 package com.trabalho;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -217,16 +218,27 @@ public class Campeonato {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
         JPanel painel = new JPanel ();
+        painel.setLayout(new BorderLayout());
         frame.getContentPane().add (painel);
+        
         
         // tentar botar texto
         
         JLabel jlabel = new JLabel(campeao.getNome() + " venceu o campeonato!");
         jlabel.setFont(new Font("Arial",1,30));
-        painel.add(jlabel);
-        jlabel.setHorizontalAlignment(JLabel.CENTER);
-        jlabel.setVerticalAlignment(JLabel.CENTER);
+        jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        painel.add(jlabel, BorderLayout.NORTH);
+        JLabel parabens = new JLabel("Parabéns!");
+        parabens.setFont(new Font("Arial", 1, 15));
+        parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        painel.add(parabens, BorderLayout.SOUTH);
         frame.setLocationRelativeTo(null);
+        
+        // Colocando imagem
+        
+        /*BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        painel.add(picLabel);*/
     }
     
     public void printChaveamento() {
