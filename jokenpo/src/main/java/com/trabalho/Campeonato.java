@@ -2,12 +2,17 @@ package com.trabalho;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
@@ -236,9 +241,12 @@ public class Campeonato {
         
         // Colocando imagem
         
-        /*BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
-        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        painel.add(picLabel);*/
+        File file = new File("trofeu.jpg");
+        System.out.println(file.getAbsolutePath());
+        ImageIcon iconeTrofeu = new ImageIcon("download.png");
+        JLabel trofeu = new JLabel(iconeTrofeu);
+        painel.add(trofeu, BorderLayout.CENTER);
+        System.out.println(iconeTrofeu.getIconHeight());
     }
     
     public void printChaveamento() {
