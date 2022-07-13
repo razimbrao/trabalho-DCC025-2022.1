@@ -220,7 +220,6 @@ public class Campeonato {
     public void mensagemVencedorFinal(Jogador campeao) {
         JFrame frame = new JFrame("Vencedor");
         frame.setSize(600, 400);
-        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
         JPanel painel = new JPanel ();
         painel.setLayout(new BorderLayout());
@@ -243,10 +242,13 @@ public class Campeonato {
         
         File file = new File("trofeu.jpg");
         System.out.println(file.getAbsolutePath());
-        ImageIcon iconeTrofeu = new ImageIcon("download.png");
+        ImageIcon iconeTrofeu = new ImageIcon("trofeu.jpg");
         JLabel trofeu = new JLabel(iconeTrofeu);
         painel.add(trofeu, BorderLayout.CENTER);
         System.out.println(iconeTrofeu.getIconHeight());
+        
+        frame.setVisible(true);
+        
     }
     
     public void printChaveamento() {
