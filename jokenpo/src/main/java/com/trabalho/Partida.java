@@ -22,20 +22,20 @@ public class Partida {
 
     public Jogador simulador(){
         // Cria loop do melhor de três
-        
-        int i = 0; 
+
+        int i = 0;
         while(i < 3 || (pontuacaoJ1 == pontuacaoJ2))
         {
             String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
-            
+
             int jogadaJ1 = j1.selecionaJogada();
             int jogadaJ2 = j2.selecionaJogada();
             //String[] jogadas = {jogadaJ1, jogadaJ2};
-            
+
             System.out.println(j1.getNome() + ": " + resultados[jogadaJ1] + " // " + j2.getNome() + ": " + resultados[jogadaJ2]);
-            
+
             // switch case com todas as possiblidades
-            
+
             switch((jogadaJ1*10) + jogadaJ2)
             {
                 case 21:
@@ -53,7 +53,7 @@ public class Partida {
                 case 1:
                     System.out.println("Papel cobre pedra, jogador " + j2.getNome() + " ganha com papel");
                     pontuacaoJ2++;
-                    break;                    
+                    break;
                 case 3:
                     System.out.println("Pedra esmaga lagarto, jogador " + j1.getNome() + " ganha com pedra");
                     pontuacaoJ1++;
@@ -61,7 +61,7 @@ public class Partida {
                 case 30:
                     System.out.println("Pedra esmaga lagarto, jogador " + j2.getNome() + " ganha com pedra");
                     pontuacaoJ2++;
-                    break; 
+                    break;
                 case 34:
                     System.out.println("Lagarto evenena Spock, jogador " + j1.getNome() + " ganha com lagarto");
                     pontuacaoJ1++;
@@ -69,7 +69,7 @@ public class Partida {
                 case 43:
                     System.out.println("Lagarto evenena Spock, jogador " + j2.getNome() + " ganha com lagarto");
                     pontuacaoJ2++;
-                    break;        
+                    break;
                 case 42:
                     System.out.println("Spock amassa tesoura, jogador " + j1.getNome() + " ganha com Spock");
                     pontuacaoJ1++;
@@ -77,7 +77,7 @@ public class Partida {
                 case 24:
                     System.out.println("Spock amassa tesoura, jogador " + j2.getNome() + " ganha com Spock");
                     pontuacaoJ2++;
-                    break; 
+                    break;
                 case 23:
                     System.out.println("Tesoura decapita lagarto, jogador " + j1.getNome() + " ganha com tesoura");
                     pontuacaoJ1++;
@@ -85,7 +85,7 @@ public class Partida {
                 case 32:
                     System.out.println("Tesoura decapita lagarto, jogador " + j2.getNome() + " ganha com tesoura");
                     pontuacaoJ2++;
-                    break;     
+                    break;
                 case 31:
                     System.out.println("Lagarto come papel, jogador " + j1.getNome() + " ganha com lagarto");
                     pontuacaoJ1++;
@@ -93,7 +93,7 @@ public class Partida {
                 case 13:
                     System.out.println("Lagarto come papel, jogador " + j2.getNome() + " ganha com lagarto");
                     pontuacaoJ2++;
-                    break;   
+                    break;
                 case 14:
                     System.out.println("Papel desmente Spock, jogador " + j1.getNome() + " ganha com papel");
                     pontuacaoJ1++;
@@ -101,7 +101,7 @@ public class Partida {
                 case 41:
                     System.out.println("Papel desmente Spock, jogador " + j2.getNome() + " ganha com papel");
                     pontuacaoJ2++;
-                    break;    
+                    break;
                 case 40:
                     System.out.println("Spock pulveriza pedra, jogador " + j1.getNome() + " ganha com Spock");
                     pontuacaoJ1++;
@@ -109,7 +109,7 @@ public class Partida {
                 case 4:
                     System.out.println("Spock pulveriza pedra, jogador " + j2.getNome() + " ganha com Spock");
                     pontuacaoJ2++;
-                    break; 
+                    break;
                 case 2:
                     System.out.println("Pedra amassa tesoura, jogador " + j1.getNome() + " ganha com pedra");
                     pontuacaoJ1++;
@@ -117,14 +117,14 @@ public class Partida {
                 case 20:
                     System.out.println("Pedra amassa tesoura, jogador " + j2.getNome() + " ganha com pedra");
                     pontuacaoJ2++;
-                    break;                     
+                    break;
                 default:
                     System.out.println("Empate");
             }
-                
+
             i++;
         }
-          
+
         if(pontuacaoJ1 > pontuacaoJ2)
         {
             this.vencedor = j1;
@@ -135,10 +135,10 @@ public class Partida {
             this.vencedor = j2;
             this.perdedor = j1;
         }
-        
+
         System.out.println("O vencedor eh " + vencedor.getNome());
         imprimePlacar();
-        
+
         return vencedor;
     }
 
@@ -149,7 +149,7 @@ public class Partida {
     public void setId(int x){
         this.id=x;
     }
-    
+
     public int getId(){
         return this.id;
     }

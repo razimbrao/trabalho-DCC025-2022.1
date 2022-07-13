@@ -16,15 +16,16 @@ public class Bot extends Jogador {
 
     public Bot(String x) {
         super(x);
+        setEhBot(true);
     }
-    
+
     /**
      *
      * @return
      */
     @Override
     public int selecionaJogada()
-    {        
+    {
         int jogada = (int)((0 + (5 - 0)) * Math.random());
         return jogada;
     }

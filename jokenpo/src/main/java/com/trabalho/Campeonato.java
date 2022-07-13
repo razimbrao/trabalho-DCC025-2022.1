@@ -2,10 +2,13 @@ package com.trabalho;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
+
+import com.github.javafaker.Faker;
 
 public class Campeonato {
     private int tamanho;
@@ -24,9 +27,9 @@ public class Campeonato {
         Scanner sc = new Scanner(System.in);
         this.tamanho = n; // TODO: por try/catch depois
         System.out.println("Digite 1 para jogar o campeonato ou 2 para apenas simular.");
-        if (sc.nextInt() == 1)
+         if (sc.nextInt() == 1)
             this.temUsuario = true;
-        else
+         else
             this.temUsuario = false;
 
         if (this.tamanho == 8) {
@@ -54,7 +57,8 @@ public class Campeonato {
 
     public void insereJogadores() { // => insere os jogadores na listaJogadores
         Jogador vetJogador[] = new Jogador[tamanho * 2];
-        String nome;
+        Faker faker = new Faker( new Locale("pt-BR") );
+        String nome = faker.name().firstName(), aux;
         int i = 0, size = this.tamanho * 2;
         Scanner sc = new Scanner(System.in);
         if (temUsuario == true) {
@@ -66,10 +70,13 @@ public class Campeonato {
             addJogador(vetJogador[i]);
         }
 
-        System.out.println("Insira " + size + " bots:");
         for (; i < vetJogador.length; i++) {
-            System.out.println("Insira o nome do Bot " + i + ": ");
-            nome = sc.nextLine();
+            aux = faker.name().firstName();
+            if(!nome.equals(aux))
+                nome = aux;
+            else
+                nome = faker.name().firstName();
+
             vetJogador[i] = new Bot(nome);
             addJogador(vetJogador[i]);
         }
@@ -86,12 +93,11 @@ public class Campeonato {
     public void chaveamento() { // faz o chaveamento do campeonato
         if (this.tamanho == 8) {
             // oitavas
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 4; i++)
                 asaEsquerda.add(this.listaPartidas.get(i));
-            }
-            for (int i = 4; i < 8; i++) {
+            for (int i = 4; i < 8; i++)
                 asaDireita.add(this.listaPartidas.get(i));
-            }
+
         } else if (this.tamanho == 4) {
             // quartas
             asaEsquerda.clear();
@@ -116,37 +122,20 @@ public class Campeonato {
     public void resolveNivel() {
         if (this.tamanho == 8) {
             // OITAVAS
-            Jogador v1 = asaEsquerda.get(0).simulador();
-            listaJogadoresAux.add(v1);
-            System.out.println("Jogador " + v1.getNome() + " avança para as quartas de final.");
+            Jogador vetV[] = new Jogador[tamanho];
+            vetV[0] = asaEsquerda.get(0).simulador();
+            vetV[1] = asaEsquerda.get(1).simulador();
+            vetV[2] = asaEsquerda.get(2).simulador();
+            vetV[3] = asaEsquerda.get(3).simulador();
+            vetV[4] = asaDireita.get(0).simulador();
+            vetV[5] = asaDireita.get(1).simulador();
+            vetV[6] = asaDireita.get(2).simulador();
+            vetV[7] = asaDireita.get(3).simulador();
 
-            Jogador v2 = asaEsquerda.get(1).simulador();
-            listaJogadoresAux.add(v2);
-            System.out.println("Jogador " + v2.getNome() + " avança para as quartas de final.");
-
-            Jogador v3 = asaEsquerda.get(2).simulador();
-            listaJogadoresAux.add(v3);
-            System.out.println("Jogador " + v3.getNome() + " avança para as quartas de final.");
-
-            Jogador v4 = asaEsquerda.get(3).simulador();
-            listaJogadoresAux.add(v4);
-            System.out.println("Jogador " + v4.getNome() + " avança para as quartas de final.");
-
-            Jogador v5 = asaDireita.get(0).simulador();
-            listaJogadoresAux.add(v5);
-            System.out.println("Jogador " + v5.getNome() + " avança para as quartas de final.");
-
-            Jogador v6 = asaDireita.get(1).simulador();
-            listaJogadoresAux.add(v6);
-            System.out.println("Jogador " + v6.getNome() + " avança para as quartas de final.");
-
-            Jogador v7 = asaDireita.get(2).simulador();
-            listaJogadoresAux.add(v7);
-            System.out.println("Jogador " + v7.getNome() + " avança para as quartas de final.");
-
-            Jogador v8 = asaDireita.get(3).simulador();
-            listaJogadoresAux.add(v8);
-            System.out.println("Jogador " + v8.getNome() + " avança para as quartas de final.");
+            for (Jogador jogador : vetV) {
+                listaJogadoresAux.add(jogador);
+                System.out.println("Jogador " + jogador.getNome() + " avança para as quartas de final.");
+            }
 
             listaJogadores.clear();
             listaPartidas.clear();
@@ -160,21 +149,17 @@ public class Campeonato {
 
         if (this.tamanho == 4) {
             // QUARTAS
-            Jogador v1 = asaEsquerda.get(0).simulador();
-            listaJogadoresAux.add(v1);
-            System.out.println("Jogador " + v1.getNome() + " avança para as semifinais.");
 
-            Jogador v2 = asaEsquerda.get(1).simulador();
-            listaJogadoresAux.add(v2);
-            System.out.println("Jogador " + v2.getNome() + " avança para as semifinais.");
+            Jogador vetV[] = new Jogador[tamanho];
+            vetV[0] = asaEsquerda.get(0).simulador();
+            vetV[1] = asaEsquerda.get(1).simulador();
+            vetV[2] = asaDireita.get(0).simulador();
+            vetV[3] = asaDireita.get(1).simulador();
 
-            Jogador v3 = asaDireita.get(0).simulador();
-            listaJogadoresAux.add(v3);
-            System.out.println("Jogador " + v3.getNome() + " avança para as semifinais.");
-
-            Jogador v4 = asaDireita.get(1).simulador();
-            listaJogadoresAux.add(v4);
-            System.out.println("Jogador " + v4.getNome() + " avança para as semifinais.");
+            for (Jogador jogador : vetV) {
+                listaJogadoresAux.add(jogador);
+                System.out.println("Jogador " + jogador.getNome() + " avança para as semifinais.");
+            }
 
             listaJogadores.clear();
             listaPartidas.clear();
@@ -270,7 +255,7 @@ public class Campeonato {
      * int index=x.getId();
      * this.listaJogadores.remove(index);
      * }
-     * 
+     *
      * public void removePartida(Partida x)
      * {
      * this.listaPartidas.remove(x.getId());
