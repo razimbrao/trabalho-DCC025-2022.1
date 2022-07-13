@@ -1,8 +1,12 @@
 package com.trabalho;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
@@ -200,13 +204,31 @@ public class Campeonato {
         if (this.tamanho == 0) {
             // FINAL
             Jogador campeao = partidaFinal.simulador();
-            System.out.println(campeao.getNome() + " venceu o campeonato!");
+            this.mensagemVencedorFinal(campeao);
 
         }
     }
 
     // ------------------ PRINTS ---------------------------------- //
-
+    
+    public void mensagemVencedorFinal(Jogador campeao) {
+        JFrame frame = new JFrame("Vencedor");
+        frame.setSize(600, 400);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+        JPanel painel = new JPanel ();
+        frame.getContentPane().add (painel);
+        
+        // tentar botar texto
+        
+        JLabel jlabel = new JLabel(campeao.getNome() + " venceu o campeonato!");
+        jlabel.setFont(new Font("Arial",1,30));
+        painel.add(jlabel);
+        jlabel.setHorizontalAlignment(JLabel.CENTER);
+        jlabel.setVerticalAlignment(JLabel.CENTER);
+        frame.setLocationRelativeTo(null);
+    }
+    
     public void printChaveamento() {
         if (this.tamanho == 8) {
             System.out.println("---- OITAVAS DE FINAL ----- \n");
