@@ -1,6 +1,7 @@
 package com.trabalho;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -223,29 +224,30 @@ public class Campeonato {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
         JPanel painel = new JPanel ();
         painel.setLayout(new BorderLayout());
+        painel.setBackground(Color.white);
         frame.getContentPane().add (painel);
         
         
         // tentar botar texto
         
         JLabel jlabel = new JLabel(campeao.getNome() + " venceu o campeonato!");
-        jlabel.setFont(new Font("Arial",1,30));
+        jlabel.setFont(new Font("Arial",0,30));
         jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         painel.add(jlabel, BorderLayout.NORTH);
         JLabel parabens = new JLabel("Parabéns!");
-        parabens.setFont(new Font("Arial", 1, 15));
+        parabens.setFont(new Font("Arial", 0, 20));
         parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         painel.add(parabens, BorderLayout.SOUTH);
         frame.setLocationRelativeTo(null);
         
         // Colocando imagem
         
-        File file = new File("trofeu.jpg");
-        System.out.println(file.getAbsolutePath());
         ImageIcon iconeTrofeu = new ImageIcon("trofeu.jpg");
+        Image image = iconeTrofeu.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        iconeTrofeu = new ImageIcon(newimg);  // transform it back
         JLabel trofeu = new JLabel(iconeTrofeu);
         painel.add(trofeu, BorderLayout.CENTER);
-        System.out.println(iconeTrofeu.getIconHeight());
         
         frame.setVisible(true);
         
