@@ -3,7 +3,7 @@ package com.trabalho;
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 
-public class Jogador {
+public abstract class Jogador {
     private String nome;
     private static int nJogadores;
     private boolean ehBot;
