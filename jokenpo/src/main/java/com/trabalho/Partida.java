@@ -1,6 +1,19 @@
 package com.trabalho;
 
 // Rafael de Oliveira Zimbrão - 202165124A
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 
@@ -19,6 +32,55 @@ public class Partida {
         pontuacaoJ1 = 0;
         pontuacaoJ2 = 0;
     }
+<<<<<<< Updated upstream
+=======
+    
+    public void imprimePartida(String frase1, String frase2
+            , int jogadaJ1, int jogadaJ2, Jogador j1, Jogador j2, Jogador vencedor){
+        String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
+        
+        JFrame frame = new JFrame("Partida");
+        frame.setSize(600, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+        JPanel painel = new JPanel ();
+        painel.setLayout(new BorderLayout());
+        painel.setBackground(Color.white);
+        frame.getContentPane().add (painel);
+        
+        
+        // tentar botar texto
+        
+        JLabel jlabel = new JLabel(j1.getNome() + ": " + resultados[jogadaJ1] + " // " + j2.getNome() + ": " + resultados[jogadaJ2]);
+        jlabel.setFont(new Font("Arial",0,30));
+        jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        painel.add(jlabel, BorderLayout.NORTH);
+        JLabel parabens = new JLabel(frase1 + vencedor.getNome() + frase2);
+        parabens.setFont(new Font("Arial", 0, 20));
+        parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        painel.add(parabens, BorderLayout.SOUTH);
+        frame.setLocationRelativeTo(null);
+        
+        // Colocando imagem
+        
+        ImageIcon iconeJ1 = new ImageIcon(resultados[jogadaJ1] + "Flip.jpg");
+        Image image = iconeJ1.getImage();       
+        Image newimg1 = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH);        
+        iconeJ1 = new ImageIcon(newimg1); 
+        JLabel jogada1 = new JLabel(iconeJ1);
+        painel.add(jogada1, BorderLayout.WEST);
+        
+        
+        
+        ImageIcon iconeJ2 = new ImageIcon(resultados[jogadaJ2] + ".jpg");
+        image = iconeJ2.getImage(); 
+        Image newimg2 = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); 
+        iconeJ2 = new ImageIcon(newimg2); 
+        JLabel jogada2 = new JLabel(iconeJ2);
+        painel.add(jogada2, BorderLayout.EAST);
+        
+        frame.setVisible(true);
+    }
+>>>>>>> Stashed changes
 
     public Jogador simulador(){
         // Cria loop do melhor de três
