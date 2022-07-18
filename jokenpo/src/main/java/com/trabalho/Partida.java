@@ -19,103 +19,169 @@ public class Partida {
         pontuacaoJ1 = 0;
         pontuacaoJ2 = 0;
     }
+    
+    public void imprimePartida(String frase1, String frase2
+            , int jogadaJ1, int jogadaJ2, Jogador j1, Jogador j2, Jogador vencedor){
+        String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
+        System.out.println(j1.getNome() + ": " + resultados[jogadaJ1] + " // " + j2.getNome() + ": " + resultados[jogadaJ2]);
+        System.out.println(frase1 + vencedor.getNome() + frase2);
+    }
 
     public Jogador simulador(){
         // Cria loop do melhor de três
+        String frase1;
+        String frase2;
+        Jogador vencedorImprime;
         
         int i = 0; 
         while(i < 3 || (pontuacaoJ1 == pontuacaoJ2))
         {
-            String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
             
             int jogadaJ1 = j1.selecionaJogada();
             int jogadaJ2 = j2.selecionaJogada();
-            //String[] jogadas = {jogadaJ1, jogadaJ2};
-            
-            System.out.println(j1.getNome() + ": " + resultados[jogadaJ1] + " // " + j2.getNome() + ": " + resultados[jogadaJ2]);
             
             // switch case com todas as possiblidades
             
             switch((jogadaJ1*10) + jogadaJ2)
             {
                 case 21:
-                    System.out.println("Tesoura corta papel, jogador " + j1.getNome() + " ganha com tesoura");
+                    frase1 = "Tesoura corta papel, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com tesoura";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 12:
-                    System.out.println("Tesoura corta papel, jogador " + j2.getNome() + " ganha com tesoura");
+                    frase1 = "Tesoura corta papel, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com tesoura";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break;
                 case 10:
-                    System.out.println("Papel cobre pedra, jogador " + j1.getNome() + " ganha com papel");
+                    frase1 = "Papel cobre pedra, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com papel";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 1:
-                    System.out.println("Papel cobre pedra, jogador " + j2.getNome() + " ganha com papel");
+                    frase1 = "Papel cobre pedra, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com papel";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break;                    
                 case 3:
-                    System.out.println("Pedra esmaga lagarto, jogador " + j1.getNome() + " ganha com pedra");
+                    frase1 = "Pedra esmaga lagarto, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com pedra";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 30:
-                    System.out.println("Pedra esmaga lagarto, jogador " + j2.getNome() + " ganha com pedra");
+                    frase1 = "Pedra esmaga lagarto, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com pedra";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break; 
                 case 34:
-                    System.out.println("Lagarto evenena Spock, jogador " + j1.getNome() + " ganha com lagarto");
+                    frase1 = "Lagarto evenena Spock, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com lagarto";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 43:
-                    System.out.println("Lagarto evenena Spock, jogador " + j2.getNome() + " ganha com lagarto");
+                    frase1 = "Lagarto evenena Spock, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com lagarto";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break;        
                 case 42:
-                    System.out.println("Spock amassa tesoura, jogador " + j1.getNome() + " ganha com Spock");
+                    frase1 = "Spock amassa tesoura, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com Spock";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 24:
-                    System.out.println("Spock amassa tesoura, jogador " + j2.getNome() + " ganha com Spock");
+                    frase1 = "Spock amassa tesoura, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com Spock";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break; 
                 case 23:
-                    System.out.println("Tesoura decapita lagarto, jogador " + j1.getNome() + " ganha com tesoura");
+                    frase1 = "Tesoura decapita lagarto, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com tesoura";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 32:
-                    System.out.println("Tesoura decapita lagarto, jogador " + j2.getNome() + " ganha com tesoura");
+                    frase1 = "Tesoura decapita lagarto, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com tesoura";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break;     
                 case 31:
-                    System.out.println("Lagarto come papel, jogador " + j1.getNome() + " ganha com lagarto");
+                    frase1 = "Lagarto come papel, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com lagarto";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 13:
-                    System.out.println("Lagarto come papel, jogador " + j2.getNome() + " ganha com lagarto");
+                    frase1 = "Lagarto come papel, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com lagarto";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break;   
                 case 14:
-                    System.out.println("Papel desmente Spock, jogador " + j1.getNome() + " ganha com papel");
+                    frase1 = "Papel desmente Spock, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com papel";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 41:
-                    System.out.println("Papel desmente Spock, jogador " + j2.getNome() + " ganha com papel");
+                    frase1 = "Papel desmente Spock, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com papel";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break;    
                 case 40:
-                    System.out.println("Spock pulveriza pedra, jogador " + j1.getNome() + " ganha com Spock");
+                    frase1 = "Spock pulveriza pedra, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com Spock";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 4:
-                    System.out.println("Spock pulveriza pedra, jogador " + j2.getNome() + " ganha com Spock");
+                    frase1 = "Spock pulveriza pedra, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com Spock";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break; 
                 case 2:
-                    System.out.println("Pedra amassa tesoura, jogador " + j1.getNome() + " ganha com pedra");
+                    frase1 = "Pedra amassa tesoura, jogador ";
+                    vencedorImprime = j1;
+                    frase2 = " ganha com pedra";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ1++;
                     break;
                 case 20:
-                    System.out.println("Pedra amassa tesoura, jogador " + j2.getNome() + " ganha com pedra");
+                    frase1 = "Pedra amassa tesoura, jogador ";
+                    vencedorImprime = j2;
+                    frase2 = " ganha com pedra";
+                    this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
                     break;                     
                 default:
