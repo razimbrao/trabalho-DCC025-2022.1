@@ -1,9 +1,20 @@
 package com.trabalho;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
@@ -185,13 +196,48 @@ public class Campeonato {
         if (this.tamanho == 0) {
             // FINAL
             Jogador campeao = partidaFinal.simulador();
-            System.out.println(campeao.getNome() + " venceu o campeonato!");
+            this.mensagemVencedorFinal(campeao);
 
         }
     }
 
     // ------------------ PRINTS ---------------------------------- //
-
+    
+    public void mensagemVencedorFinal(Jogador campeao) {
+        JFrame frame = new JFrame("Vencedor");
+        frame.setSize(600, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+        JPanel painel = new JPanel ();
+        painel.setLayout(new BorderLayout());
+        painel.setBackground(Color.white);
+        frame.getContentPane().add (painel);
+        
+        
+        // tentar botar texto
+        
+        JLabel jlabel = new JLabel(campeao.getNome() + " venceu o campeonato!");
+        jlabel.setFont(new Font("Arial",0,30));
+        jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        painel.add(jlabel, BorderLayout.NORTH);
+        JLabel parabens = new JLabel("Parabéns!");
+        parabens.setFont(new Font("Arial", 0, 20));
+        parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        painel.add(parabens, BorderLayout.SOUTH);
+        frame.setLocationRelativeTo(null);
+        
+        // Colocando imagem
+        
+        ImageIcon iconeTrofeu = new ImageIcon("trofeu.jpg");
+        Image image = iconeTrofeu.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        iconeTrofeu = new ImageIcon(newimg);  // transform it back
+        JLabel trofeu = new JLabel(iconeTrofeu);
+        painel.add(trofeu, BorderLayout.CENTER);
+        
+        frame.setVisible(true);
+        
+    }
+    
     public void printChaveamento() {
         if (this.tamanho == 8) {
             System.out.println("---- OITAVAS DE FINAL ----- \n");
