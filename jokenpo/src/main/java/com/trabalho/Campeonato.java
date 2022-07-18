@@ -247,18 +247,4 @@ public class Campeonato {
             System.out.println("Partida " + (p.getId() + 1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
     }
     // ------------------ FIM-PRINTS ---------------------------------- //
-
-    /*
-     * LOGICA DO ID NÃO TA FUNCIONANDO
-     * public void removeJogador(Jogador x)
-     * {
-     * int index=x.getId();
-     * this.listaJogadores.remove(index);
-     * }
-     *
-     * public void removePartida(Partida x)
-     * {
-     * this.listaPartidas.remove(x.getId());
-     * }
-     */
 }
