@@ -16,15 +16,16 @@ public class Usuario extends Jogador {
 
     public Usuario(String x) {
         super(x);
+        setEhBot(false);
     }
-    
+
         /**
      *
      * @return
      */
     @Override
     public int selecionaJogada()
-    {        
+    {
         int jogada = Integer.parseInt(JOptionPane.showInputDialog("Insira sua jogada: 0-pedra/1-papel/2-tesoura/3-lagarto/4-spock"));
         return jogada;
     }

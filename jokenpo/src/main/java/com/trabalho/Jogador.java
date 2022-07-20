@@ -3,13 +3,14 @@ package com.trabalho;
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 
-public class Jogador {
+public abstract class Jogador {
     private String nome;
     private static int nJogadores;
+    private boolean ehBot;
     private int id;
-    
+
     public int selecionaJogada()
-    {        
+    {
         int jogada = 1;
         return jogada;
     }
@@ -17,7 +18,7 @@ public class Jogador {
     public String getNome() {
         return nome;
     }
-    
+
     public Jogador(String x){
         this.nome = x;
         nJogadores++;
@@ -29,9 +30,17 @@ public class Jogador {
     public void setId(int x){
         this.id=x;
     }
-    
+
     public int getId(){
         return this.id;
+    }
+
+    public boolean getEhBot() {
+        return this.ehBot;
+    }
+
+    public void setEhBot(boolean x) {
+        this.ehBot = x;
     }
 }
 

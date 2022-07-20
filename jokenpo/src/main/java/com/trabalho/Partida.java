@@ -32,22 +32,22 @@ public class Partida {
         pontuacaoJ1 = 0;
         pontuacaoJ2 = 0;
     }
-    
+
     public void imprimePartida(String frase1, String frase2
             , int jogadaJ1, int jogadaJ2, Jogador j1, Jogador j2, Jogador vencedor){
         String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
-        
+
         JFrame frame = new JFrame("Partida");
         frame.setSize(600, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel painel = new JPanel ();
         painel.setLayout(new BorderLayout());
         painel.setBackground(Color.white);
         frame.getContentPane().add (painel);
-        
-        
+
+
         // tentar botar texto
-        
+
         JLabel jlabel = new JLabel(j1.getNome() + ": " + resultados[jogadaJ1] + " // " + j2.getNome() + ": " + resultados[jogadaJ2]);
         jlabel.setFont(new Font("Arial",0,30));
         jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -57,25 +57,25 @@ public class Partida {
         parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         painel.add(parabens, BorderLayout.SOUTH);
         frame.setLocationRelativeTo(null);
-        
+
         // Colocando imagem
-        
+
         ImageIcon iconeJ1 = new ImageIcon(resultados[jogadaJ1] + "Flip.jpg");
-        Image image = iconeJ1.getImage();       
-        Image newimg1 = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH);        
-        iconeJ1 = new ImageIcon(newimg1); 
+        Image image = iconeJ1.getImage();
+        Image newimg1 = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH);
+        iconeJ1 = new ImageIcon(newimg1);
         JLabel jogada1 = new JLabel(iconeJ1);
         painel.add(jogada1, BorderLayout.WEST);
-        
-        
-        
+
+
+
         ImageIcon iconeJ2 = new ImageIcon(resultados[jogadaJ2] + ".jpg");
-        image = iconeJ2.getImage(); 
-        Image newimg2 = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); 
-        iconeJ2 = new ImageIcon(newimg2); 
+        image = iconeJ2.getImage();
+        Image newimg2 = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH);
+        iconeJ2 = new ImageIcon(newimg2);
         JLabel jogada2 = new JLabel(iconeJ2);
         painel.add(jogada2, BorderLayout.EAST);
-        
+
         frame.setVisible(true);
     }
 
@@ -84,16 +84,16 @@ public class Partida {
         String frase1;
         String frase2;
         Jogador vencedorImprime;
-        
-        int i = 0; 
+
+        int i = 0;
         while(i < 3 || (pontuacaoJ1 == pontuacaoJ2))
         {
-            
+
             int jogadaJ1 = j1.selecionaJogada();
             int jogadaJ2 = j2.selecionaJogada();
-            
+
             // switch case com todas as possiblidades
-            
+
             switch((jogadaJ1*10) + jogadaJ2)
             {
                 case 21:
@@ -123,7 +123,7 @@ public class Partida {
                     frase2 = " ganha com papel";
                     this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
-                    break;                    
+                    break;
                 case 3:
                     frase1 = "Pedra esmaga lagarto, jogador ";
                     vencedorImprime = j1;
@@ -137,7 +137,7 @@ public class Partida {
                     frase2 = " ganha com pedra";
                     this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
-                    break; 
+                    break;
                 case 34:
                     frase1 = "Lagarto evenena Spock, jogador ";
                     vencedorImprime = j1;
@@ -151,7 +151,7 @@ public class Partida {
                     frase2 = " ganha com lagarto";
                     this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
-                    break;        
+                    break;
                 case 42:
                     frase1 = "Spock amassa tesoura, jogador ";
                     vencedorImprime = j1;
@@ -165,7 +165,7 @@ public class Partida {
                     frase2 = " ganha com Spock";
                     this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
-                    break; 
+                    break;
                 case 23:
                     frase1 = "Tesoura decapita lagarto, jogador ";
                     vencedorImprime = j1;
@@ -179,7 +179,7 @@ public class Partida {
                     frase2 = " ganha com tesoura";
                     this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
-                    break;     
+                    break;
                 case 31:
                     frase1 = "Lagarto come papel, jogador ";
                     vencedorImprime = j1;
@@ -193,7 +193,7 @@ public class Partida {
                     frase2 = " ganha com lagarto";
                     this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
-                    break;   
+                    break;
                 case 14:
                     frase1 = "Papel desmente Spock, jogador ";
                     vencedorImprime = j1;
@@ -207,7 +207,7 @@ public class Partida {
                     frase2 = " ganha com papel";
                     this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
-                    break;    
+                    break;
                 case 40:
                     frase1 = "Spock pulveriza pedra, jogador ";
                     vencedorImprime = j1;
@@ -221,7 +221,7 @@ public class Partida {
                     frase2 = " ganha com Spock";
                     this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
-                    break; 
+                    break;
                 case 2:
                     frase1 = "Pedra amassa tesoura, jogador ";
                     vencedorImprime = j1;
@@ -235,14 +235,14 @@ public class Partida {
                     frase2 = " ganha com pedra";
                     this.imprimePartida(frase1, frase2, jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
                     pontuacaoJ2++;
-                    break;                     
+                    break;
                 default:
                     System.out.println("Empate");
             }
-                
+
             i++;
         }
-          
+
         if(pontuacaoJ1 > pontuacaoJ2)
         {
             this.vencedor = j1;
@@ -253,10 +253,10 @@ public class Partida {
             this.vencedor = j2;
             this.perdedor = j1;
         }
-        
+
         System.out.println("O vencedor eh " + vencedor.getNome());
         imprimePlacar();
-        
+
         return vencedor;
     }
 
@@ -267,7 +267,7 @@ public class Partida {
     public void setId(int x){
         this.id=x;
     }
-    
+
     public int getId(){
         return this.id;
     }
