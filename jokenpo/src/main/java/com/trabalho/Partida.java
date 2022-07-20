@@ -6,10 +6,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -75,8 +78,19 @@ public class Partida {
         iconeJ2 = new ImageIcon(newimg2);
         JLabel jogada2 = new JLabel(iconeJ2);
         painel.add(jogada2, BorderLayout.EAST);
+        
+        JButton passar = new JButton("Próximo"); 
+        passar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                frame.dispose();
+            }
+        });
+        painel.add(passar, BorderLayout.PAGE_END);
 
         frame.setVisible(true);
+        
+        
     }
 
     public Jogador simulador(){
