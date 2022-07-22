@@ -27,6 +27,8 @@ public class Partida {
     private int pontuacaoJ2;
     private Jogador vencedor;
     private Jogador perdedor;
+    private int numJogadas;
+    private int numPassar;
     private int id;
 
     public Partida(Jogador j1, Jogador j2){
@@ -34,12 +36,15 @@ public class Partida {
         this.j2 = j2;
         pontuacaoJ1 = 0;
         pontuacaoJ2 = 0;
+        this.numPassar = 0;
     }
 
     public void imprimePartida(String frase1, String frase2
             , int jogadaJ1, int jogadaJ2, Jogador j1, Jogador j2, Jogador vencedor){
         String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
-
+        
+        
+        numPassar = 0;
         JFrame frame = new JFrame("Partida");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,14 +88,37 @@ public class Partida {
         passar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                frame.dispose();
+                frame.setVisible(false);
+                setNumPassar(1);
             }
         });
+       
         painel.add(passar, BorderLayout.PAGE_END);
-
         frame.setVisible(true);
         
+        int placeholder = 0;
+        while(numPassar == 0)
+        {
+            System.out.print("");
+        }
         
+    }
+
+    public void setNumPassar(int numPassar) {
+        this.numPassar = numPassar;
+    }
+
+    public int getNumJogadas() {
+        return numJogadas;
+    }
+    
+    public boolean checaContinuarPartida()
+    {
+        return this.numJogadas < 3 || (this.pontuacaoJ1 == this.pontuacaoJ2);
+    }
+
+    public void setNumJogadas(int numJogadas) {
+        this.numJogadas = numJogadas;
     }
 
     public Jogador simulador(){
