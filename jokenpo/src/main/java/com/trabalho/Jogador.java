@@ -9,11 +9,7 @@ public abstract class Jogador {
     private boolean ehBot;
     private int id;
 
-    public int selecionaJogada()
-    {
-        int jogada = 1;
-        return jogada;
-    }
+    public abstract int selecionaJogada();
 
     public String getNome() {
         return nome;
