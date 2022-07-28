@@ -10,10 +10,6 @@ public final class App {
 
     public static void main(String[] args) {
 
-        /*Usuario livota = new Usuario("Livota");
-        Bot cgpGray = new Bot("CGP Gray");
-        Partida teste = new Partida(livota, cgpGray);
-        teste.simulador(); */
 
         String[] opcoesTamanho = {"Dois níveis", "Quatro níveis" , "Oito níveis"};
         int tamanho = JOptionPane.showOptionDialog(null, "Selecione o tamanho do campeonato desejado:", "Tamanho da partida"

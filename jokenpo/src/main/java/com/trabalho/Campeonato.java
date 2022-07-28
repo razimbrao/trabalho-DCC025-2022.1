@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -11,6 +12,8 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -37,8 +40,9 @@ public class Campeonato {
     public Campeonato(int n) { // informa qual o tamanho do campeonato
         Scanner sc = new Scanner(System.in);
         this.tamanho = n; // TODO: por try/catch depois
-        System.out.println("Digite 1 para jogar o campeonato ou 2 para apenas simular.");
-         if (sc.nextInt() == 1)
+        //System.out.println("Digite 1 para jogar o campeonato ou 2 para apenas simular.");
+        boolean f = false;
+         if (/* sc.nextInt() == 1 */f)
             this.temUsuario = true;
          else
             this.temUsuario = false;
@@ -108,6 +112,7 @@ public class Campeonato {
                 asaEsquerda.add(this.listaPartidas.get(i));
             for (int i = 4; i < 8; i++)
                 asaDireita.add(this.listaPartidas.get(i));
+            telaChaveamento("Oitavas de final");
 
         } else if (this.tamanho == 4) {
             // quartas
@@ -117,15 +122,17 @@ public class Campeonato {
                 asaEsquerda.add(this.listaPartidas.get(i));
             for (int i = 2; i < 4; i++)
                 asaDireita.add(this.listaPartidas.get(i));
-
+            telaChaveamento("Quartas de final");
         } else if (this.tamanho == 2) {
             // semi
             asaEsquerda.clear();
             asaDireita.clear();
             asaEsquerda.add(this.listaPartidas.get(0));
             asaDireita.add(this.listaPartidas.get(1));
+            telaChaveamento("Semi final");
         } else if (this.tamanho == 0) {
             partidaFinal = new Partida(asaEsquerda.get(0).getVencedor(), asaDireita.get(0).getVencedor());
+            telaChaveamento("Final");
         }
         printChaveamento();
     }
@@ -202,19 +209,19 @@ public class Campeonato {
     }
 
     // ------------------ PRINTS ---------------------------------- //
-    
+
     public void mensagemVencedorFinal(Jogador campeao) {
         JFrame frame = new JFrame("Vencedor");
         frame.setSize(600, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel painel = new JPanel ();
         painel.setLayout(new BorderLayout());
         painel.setBackground(Color.white);
         frame.getContentPane().add (painel);
-        
-        
+
+
         // tentar botar texto
-        
+
         JLabel jlabel = new JLabel(campeao.getNome() + " venceu o campeonato!");
         jlabel.setFont(new Font("Arial",0,30));
         jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -224,20 +231,65 @@ public class Campeonato {
         parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         painel.add(parabens, BorderLayout.SOUTH);
         frame.setLocationRelativeTo(null);
-        
+
         // Colocando imagem
-        
+
         ImageIcon iconeTrofeu = new ImageIcon("trofeu.jpg");
-        Image image = iconeTrofeu.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        Image image = iconeTrofeu.getImage(); // transform it
+        Image newimg = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         iconeTrofeu = new ImageIcon(newimg);  // transform it back
         JLabel trofeu = new JLabel(iconeTrofeu);
         painel.add(trofeu, BorderLayout.CENTER);
-        
+
         frame.setVisible(true);
-        
+
     }
-    
+
+    public void telaChaveamento(String fase) {
+        JFrame frame = new JFrame("Chaveamento - " + fase);
+        frame.setSize(700, 700);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        GridLayout grid = new GridLayout(5, 4, 20, 20);
+        JPanel painel = new JPanel ();
+        painel.setLayout(grid);
+        painel.setBackground(Color.white);
+        frame.getContentPane().add(painel);
+
+        JTextArea asaD = new JTextArea(1, 5);
+        asaD.setText("ASA DIREITA");
+        asaD.setFont(new Font("Arial", 0, 30));
+        for (Partida partida : asaDireita) {
+
+            asaD.setText(asaD.getText() + "\n" + partida.getJ1().getNome() + " x " + partida.getJ2().getNome());
+            //asaD.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+            painel.add(asaD, BorderLayout.NORTH);
+        }
+
+/*         JLabel tituloE = new JLabel("Asa Esquerda");
+        tituloE.setFont(new Font("Arial",0,30));
+        tituloE.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        painel.add(tituloE, BorderLayout.NORTH);
+        JLabel jLabelE;
+        for (Partida partida : asaEsquerda) {
+            jLabelE = new JLabel(partida.getJ1().getNome() + " x " + partida.getJ2().getNome());
+            jLabelE.setFont(new Font("Arial",0,30));
+            jLabelE.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            painel.add(jLabelE, BorderLayout.NORTH);
+        } */
+/*
+        JLabel jlabel = new JLabel(campeao.getNome() + " venceu o campeonato!");
+        jlabel.setFont(new Font("Arial",0,30));
+        jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        painel.add(jlabel, BorderLayout.NORTH);
+        JLabel parabens = new JLabel("Parabéns!");
+        parabens.setFont(new Font("Arial", 0, 20));
+        parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        painel.add(parabens, BorderLayout.SOUTH);
+        frame.setLocationRelativeTo(null); */
+        frame.setVisible(true);
+    }
+
     public void printChaveamento() {
         if (this.tamanho == 8) {
             System.out.println("---- OITAVAS DE FINAL ----- \n");
