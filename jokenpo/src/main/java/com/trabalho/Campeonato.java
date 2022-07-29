@@ -20,6 +20,8 @@ import javax.swing.ImageIcon;
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 
 import com.github.javafaker.Faker;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Campeonato {
@@ -81,8 +83,9 @@ public class Campeonato {
         if (temUsuario == true) {
             size = size - 1;
             i = 1;
-            System.out.println("Insira o nome do Usuário: ");
-            nome = sc.nextLine();
+
+            nome = this.recebeNome();
+
             vetJogador[i] = new Usuario(nome);
             addJogador(vetJogador[i]);
         }
@@ -209,6 +212,25 @@ public class Campeonato {
             this.mensagemVencedorFinal(campeao);
 
         }
+    }
+    
+    public String recebeNome()
+    {
+        String nome = JOptionPane.showInputDialog("Insira o nome do usuário:");
+        try{
+            
+            if(nome.length() < 2)
+            {
+                throw new nomeUsuarioInvalido();
+            }
+        }
+        catch(nomeUsuarioInvalido ex)
+        {
+            JOptionPane.showMessageDialog(null, "ERRO: O nome de usuário deve ter pelo menos 2 caracteres.", "Erro", JOptionPane.WARNING_MESSAGE);
+            nome = recebeNome();
+        }
+
+        return nome;
     }
 
     // ------------------ PRINTS ---------------------------------- //
