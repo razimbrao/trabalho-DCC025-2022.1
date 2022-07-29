@@ -26,7 +26,10 @@ public class Usuario extends Jogador {
     @Override
     public int selecionaJogada()
     {
-        int jogada = Integer.parseInt(JOptionPane.showInputDialog("Insira sua jogada: 0-pedra/1-papel/2-tesoura/3-lagarto/4-spock"));
+        String[] opcoesJogada = {"Pedra", "Papel", "Tesoura", "Lagarto", "Spock"};
+        int jogada = JOptionPane.showOptionDialog(null, "Selecione sua Jogada:", "Jogada:"
+                ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesJogada, opcoesJogada[0]);
+        //int jogada = Integer.parseInt(JOptionPane.showInputDialog("Insira sua jogada: 0-pedra/1-papel/2-tesoura/3-lagarto/4-spock"));
         return jogada;
     }
 }
