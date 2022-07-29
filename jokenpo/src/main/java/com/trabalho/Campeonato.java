@@ -45,7 +45,6 @@ public class Campeonato {
         String[] opcoesJogo = {"Simular", "Jogar"};
         int opcaoJogo = JOptionPane.showOptionDialog(null, "Selecione o modo de jogo:", "Modo de Jogo"
                 ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesJogo, opcoesJogo[1]);
-        System.out.println("Digite 1 para jogar o campeonato ou 2 para apenas simular.");
          if (opcaoJogo == 1)
             this.temUsuario = true;
          else
