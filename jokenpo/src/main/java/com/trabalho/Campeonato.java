@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 
 import com.github.javafaker.Faker;
+import javax.swing.JOptionPane;
 
 public class Campeonato {
     private int tamanho;
@@ -37,8 +38,11 @@ public class Campeonato {
     public Campeonato(int n) { // informa qual o tamanho do campeonato
         Scanner sc = new Scanner(System.in);
         this.tamanho = n; // TODO: por try/catch depois
+        String[] opcoesJogo = {"Simular", "Jogar"};
+        int opcaoJogo = JOptionPane.showOptionDialog(null, "Selecione o modo de jogo:", "Modo de Jogo"
+                ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesJogo, opcoesJogo[1]);
         System.out.println("Digite 1 para jogar o campeonato ou 2 para apenas simular.");
-         if (sc.nextInt() == 1)
+         if (opcaoJogo == 1)
             this.temUsuario = true;
          else
             this.temUsuario = false;
