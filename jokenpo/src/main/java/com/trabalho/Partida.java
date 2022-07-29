@@ -52,19 +52,31 @@ public class Partida {
         painel.setLayout(new BorderLayout());
         painel.setBackground(Color.white);
         frame.getContentPane().add (painel);
+        frame.setLocationRelativeTo(null);
 
 
         // tentar botar texto
-
-        JLabel jlabel = new JLabel(j1.getNome() + ": " + resultados[jogadaJ1] + " // " + j2.getNome() + ": " + resultados[jogadaJ2]);
+        
+        JPanel painelFrase = new JPanel();
+        painelFrase.setLayout(new BorderLayout());
+        JLabel jlabel = new JLabel(j1.getNome() + ": " + resultados[jogadaJ1] + " | " + j2.getNome() + ": " + resultados[jogadaJ2] +
+                "\n");
         jlabel.setFont(new Font("Arial",0,30));
         jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        painel.add(jlabel, BorderLayout.NORTH);
-        JLabel parabens = new JLabel(frase1 + vencedor.getNome() + frase2);
+        painelFrase.add(jlabel, BorderLayout.NORTH);
+        JLabel parabens;
+        if(vencedor == null)  // caso de empate
+        {
+            parabens = new JLabel(frase1 + frase2);
+        }
+        else  // caso não empate
+        {
+            parabens = new JLabel(frase1 + vencedor.getNome() + frase2);
+        }
         parabens.setFont(new Font("Arial", 0, 20));
         parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        painel.add(parabens, BorderLayout.SOUTH);
-        frame.setLocationRelativeTo(null);
+        painelFrase.add(parabens, BorderLayout.SOUTH);
+        painel.add(painelFrase, BorderLayout.NORTH);
 
         // Colocando imagem
 
@@ -279,7 +291,8 @@ public class Partida {
                     pontuacaoJ2++;
                     break;
                 default:
-                    System.out.println("Empate");
+                    vencedorImprime = null;
+                    this.imprimePartida("", "Empate", jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
             }
 
             i++;
