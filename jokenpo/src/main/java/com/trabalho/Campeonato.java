@@ -26,6 +26,8 @@ public class Campeonato {
     private int nJogadores;
     private int indexPartidas;
     private boolean temUsuario;
+    private int numPartidaMax;
+    private int numPartidaAtual;
 
     private Partida partidaFinal;
     private List<Jogador> listaJogadores = new ArrayList<>();
@@ -133,6 +135,10 @@ public class Campeonato {
     public void resolveNivel() {
         if (this.tamanho == 8) {
             // OITAVAS
+            
+            this.numPartidaMax = 7;
+            this.numPartidaAtual = 0;
+            
             Jogador vetV[] = new Jogador[tamanho];
             vetV[0] = asaEsquerda.get(0).simulador();
             vetV[1] = asaEsquerda.get(1).simulador();
