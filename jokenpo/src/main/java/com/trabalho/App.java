@@ -19,6 +19,6 @@ public final class App {
         camp.insereJogadores();
         camp.inserePartidas();
         camp.chaveamento();
-        camp.resolveNivel();
+        //camp.resolveNivel();
     }
 }

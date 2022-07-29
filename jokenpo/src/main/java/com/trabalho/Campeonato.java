@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -134,7 +134,7 @@ public class Campeonato {
             partidaFinal = new Partida(asaEsquerda.get(0).getVencedor(), asaDireita.get(0).getVencedor());
             telaChaveamento("Final");
         }
-        printChaveamento();
+        //printChaveamento();
     }
 
     public void resolveNivel() {
@@ -247,46 +247,34 @@ public class Campeonato {
 
     public void telaChaveamento(String fase) {
         JFrame frame = new JFrame("Chaveamento - " + fase);
-        frame.setSize(700, 700);
+        frame.setSize(1000, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GridLayout grid = new GridLayout(5, 4, 20, 20);
+        GridLayout grid = new GridLayout(1, 2);
         JPanel painel = new JPanel ();
         painel.setLayout(grid);
         painel.setBackground(Color.white);
         frame.getContentPane().add(painel);
 
+        JTextArea asaE = new JTextArea(1, 5);
+        asaE.setEditable(false);
+        asaE.setText("ASA ESQUERDA");
+        asaE.setFont(new Font("Arial", 0, 30));
+        for (Partida p : asaEsquerda) {
+            asaE.setText(asaE.getText() + "\n" + (p.getId() + 1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
+        }
+        asaE.setMargin(new Insets(175, 75, 75, 75));
+        painel.add(asaE, BorderLayout.CENTER);
         JTextArea asaD = new JTextArea(1, 5);
+        asaD.setEditable(false);
         asaD.setText("ASA DIREITA");
         asaD.setFont(new Font("Arial", 0, 30));
-        for (Partida partida : asaDireita) {
-
-            asaD.setText(asaD.getText() + "\n" + partida.getJ1().getNome() + " x " + partida.getJ2().getNome());
-            //asaD.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            painel.add(asaD, BorderLayout.NORTH);
+        for (Partida p : asaDireita) {
+            asaD.setText(asaD.getText() + "\n" + (p.getId() + 1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
         }
+        asaD.setMargin(new Insets(175, 75, 75, 75));
+        painel.add(asaD, BorderLayout.CENTER);
 
-/*         JLabel tituloE = new JLabel("Asa Esquerda");
-        tituloE.setFont(new Font("Arial",0,30));
-        tituloE.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painel.add(tituloE, BorderLayout.NORTH);
-        JLabel jLabelE;
-        for (Partida partida : asaEsquerda) {
-            jLabelE = new JLabel(partida.getJ1().getNome() + " x " + partida.getJ2().getNome());
-            jLabelE.setFont(new Font("Arial",0,30));
-            jLabelE.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            painel.add(jLabelE, BorderLayout.NORTH);
-        } */
-/*
-        JLabel jlabel = new JLabel(campeao.getNome() + " venceu o campeonato!");
-        jlabel.setFont(new Font("Arial",0,30));
-        jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        painel.add(jlabel, BorderLayout.NORTH);
-        JLabel parabens = new JLabel("Parabéns!");
-        parabens.setFont(new Font("Arial", 0, 20));
-        parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        painel.add(parabens, BorderLayout.SOUTH);
-        frame.setLocationRelativeTo(null); */
         frame.setVisible(true);
     }
 
