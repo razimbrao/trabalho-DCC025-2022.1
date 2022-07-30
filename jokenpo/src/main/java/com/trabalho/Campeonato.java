@@ -18,9 +18,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
+import javax.swing.JButton;
 
 import com.github.javafaker.Faker;
 import java.util.logging.Level;
@@ -34,6 +37,7 @@ public class Campeonato {
     private boolean temUsuario;
     private int numPartidaMax;
     private int numPartidaAtual;
+    private boolean proxChaveamento;
 
     private Partida partidaFinal;
     private List<Jogador> listaJogadores = new ArrayList<>();
@@ -43,7 +47,6 @@ public class Campeonato {
     private List<Partida> asaDireita = new ArrayList<>();
 
     public Campeonato(int n) { // informa qual o tamanho do campeonato
-        Scanner sc = new Scanner(System.in);
         this.tamanho = n; // TODO: por try/catch depois
         String[] opcoesJogo = {"Simular", "Jogar"};
         int opcaoJogo = JOptionPane.showOptionDialog(null, "Selecione o modo de jogo:", "Modo de Jogo"
@@ -52,14 +55,7 @@ public class Campeonato {
             this.temUsuario = true;
          else
             this.temUsuario = false;
-
-        if (this.tamanho == 8) {
-            System.out.println("Oitavas de final criadas!");
-        } else if (this.tamanho == 4) {
-            System.out.println("Quartas de final criadas!");
-
-        } else if (this.tamanho == 2)
-            System.out.println("Semifinais criadas!");
+        this.proxChaveamento = true;
     }
 
     public void addJogador(Jogador x) { // add o jogador na listaJogadores
@@ -78,10 +74,9 @@ public class Campeonato {
 
     public void insereJogadores() { // => insere os jogadores na listaJogadores
         Jogador vetJogador[] = new Jogador[tamanho * 2];
-        Faker faker = new Faker( new Locale("pt-BR") );
-        String nome = faker.name().firstName(), aux;
+        Faker faker = new Faker();
+        String nome = faker.pokemon().name(), aux;
         int i = 0, size = this.tamanho * 2;
-        Scanner sc = new Scanner(System.in);
         if (temUsuario == true) {
             size = size - 1;
             i = 1;
@@ -93,11 +88,11 @@ public class Campeonato {
         }
 
         for (; i < vetJogador.length; i++) {
-            aux = faker.name().firstName();
+            aux = faker.pokemon().name();
             if(!nome.equals(aux))
                 nome = aux;
             else
-                nome = faker.name().firstName();
+                nome = faker.pokemon().name();
 
             vetJogador[i] = new Bot(nome);
             addJogador(vetJogador[i]);
@@ -113,6 +108,7 @@ public class Campeonato {
     }
 
     public void chaveamento() { // faz o chaveamento do campeonato
+        this.proxChaveamento = false;
         if (this.tamanho == 8) {
             // oitavas
             for (int i = 0; i < 4; i++)
@@ -130,6 +126,7 @@ public class Campeonato {
             for (int i = 2; i < 4; i++)
                 asaDireita.add(this.listaPartidas.get(i));
             telaChaveamento("Quartas de final");
+
         } else if (this.tamanho == 2) {
             // semi
             asaEsquerda.clear();
@@ -137,6 +134,7 @@ public class Campeonato {
             asaEsquerda.add(this.listaPartidas.get(0));
             asaDireita.add(this.listaPartidas.get(1));
             telaChaveamento("Semi final");
+
         } else if (this.tamanho == 0) {
             partidaFinal = new Partida(asaEsquerda.get(0).getVencedor(), asaDireita.get(0).getVencedor());
             telaChaveamento("Final");
@@ -147,7 +145,6 @@ public class Campeonato {
     public void resolveNivel() {
         if (this.tamanho == 8) {
             // OITAVAS
-
             this.numPartidaMax = 7;
             this.numPartidaAtual = 0;
 
@@ -173,7 +170,8 @@ public class Campeonato {
             inserePartidas();
 
             this.tamanho = 4;
-            chaveamento();
+            if(proxChaveamento)
+                chaveamento();
         }
 
         if (this.tamanho == 4) {
@@ -277,35 +275,60 @@ public class Campeonato {
 
     public void telaChaveamento(String fase) {
         JFrame frame = new JFrame("Chaveamento - " + fase);
-        frame.setSize(1000, 700);
+        frame.setSize(800, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new BorderLayout());
+        JPanel painel = new JPanel();
+        painel.setLayout(new BorderLayout());
 
-        GridLayout grid = new GridLayout(1, 2);
-        JPanel painel = new JPanel ();
-        painel.setLayout(grid);
-        painel.setBackground(Color.white);
-        frame.getContentPane().add(painel);
+        //titulo do painel
+        JLabel titulo = new JLabel("Chaveamento - " + fase);
+        titulo.setFont(new Font("Arial", 0, 30));
+        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo.setBackground(Color.white);
+        painel.add(titulo, BorderLayout.PAGE_START);
+
+
+        //painel com as Asas
+        JPanel painelAsas = new JPanel();
+        GridLayout gridAsas = new GridLayout(1, 2);
+        painelAsas.setLayout(gridAsas);
+        painelAsas.setBackground(Color.white);
 
         JTextArea asaE = new JTextArea(1, 5);
+        JTextArea asaD = new JTextArea(1, 5);
+        asaE.setFont(new Font("Arial", 0, 25));
         asaE.setEditable(false);
-        asaE.setText("ASA ESQUERDA");
-        asaE.setFont(new Font("Arial", 0, 30));
+        asaD.setFont(new Font("Arial", 0, 25));
+        asaD.setEditable(false);
+        asaE.setText("  ASA ESQUERDA");
         for (Partida p : asaEsquerda) {
             asaE.setText(asaE.getText() + "\n" + (p.getId() + 1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
         }
-        asaE.setMargin(new Insets(175, 75, 75, 75));
-        painel.add(asaE, BorderLayout.CENTER);
-        JTextArea asaD = new JTextArea(1, 5);
-        asaD.setEditable(false);
-        asaD.setText("ASA DIREITA");
-        asaD.setFont(new Font("Arial", 0, 30));
+        asaE.setMargin(new Insets(80, 80, 25, 25));
+        painelAsas.add(asaE, BorderLayout.CENTER);
+        asaD.setText("  ASA DIREITA");
         for (Partida p : asaDireita) {
             asaD.setText(asaD.getText() + "\n" + (p.getId() + 1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
         }
-        asaD.setMargin(new Insets(175, 75, 75, 75));
-        painel.add(asaD, BorderLayout.CENTER);
+        asaD.setMargin(new Insets(80, 25, 25, 80));
+        painelAsas.add(asaD, BorderLayout.CENTER);
+        painel.add(painelAsas, BorderLayout.CENTER);
 
+        //painel com o botao
+        JButton passar = new JButton("Próximo");
+        painel.add(passar, BorderLayout.PAGE_END);
+        frame.add(painel);
         frame.setVisible(true);
+        passar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                frame.setVisible(false);
+                proxChaveamento = true;
+                resolveNivel();
+            }
+        });
     }
 
     public void printChaveamento() {
