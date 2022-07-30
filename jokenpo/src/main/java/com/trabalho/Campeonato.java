@@ -23,12 +23,17 @@ import javax.swing.ImageIcon;
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 
 import com.github.javafaker.Faker;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Campeonato {
     private int tamanho;
     private int nJogadores;
     private int indexPartidas;
     private boolean temUsuario;
+    private int numPartidaMax;
+    private int numPartidaAtual;
 
     private Partida partidaFinal;
     private List<Jogador> listaJogadores = new ArrayList<>();
@@ -40,9 +45,10 @@ public class Campeonato {
     public Campeonato(int n) { // informa qual o tamanho do campeonato
         Scanner sc = new Scanner(System.in);
         this.tamanho = n; // TODO: por try/catch depois
-        //System.out.println("Digite 1 para jogar o campeonato ou 2 para apenas simular.");
-        boolean f = false;
-         if (/* sc.nextInt() == 1 */f)
+        String[] opcoesJogo = {"Simular", "Jogar"};
+        int opcaoJogo = JOptionPane.showOptionDialog(null, "Selecione o modo de jogo:", "Modo de Jogo"
+                ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesJogo, opcoesJogo[1]);
+         if (opcaoJogo == 1)
             this.temUsuario = true;
          else
             this.temUsuario = false;
@@ -79,8 +85,9 @@ public class Campeonato {
         if (temUsuario == true) {
             size = size - 1;
             i = 1;
-            System.out.println("Insira o nome do Usuário: ");
-            nome = sc.nextLine();
+
+            nome = this.recebeNome();
+
             vetJogador[i] = new Usuario(nome);
             addJogador(vetJogador[i]);
         }
@@ -140,6 +147,10 @@ public class Campeonato {
     public void resolveNivel() {
         if (this.tamanho == 8) {
             // OITAVAS
+
+            this.numPartidaMax = 7;
+            this.numPartidaAtual = 0;
+
             Jogador vetV[] = new Jogador[tamanho];
             vetV[0] = asaEsquerda.get(0).simulador();
             vetV[1] = asaEsquerda.get(1).simulador();
@@ -206,6 +217,25 @@ public class Campeonato {
             this.mensagemVencedorFinal(campeao);
 
         }
+    }
+
+    public String recebeNome()
+    {
+        String nome = JOptionPane.showInputDialog("Insira o nome do usuário:");
+        try{
+
+            if(nome.length() < 2)
+            {
+                throw new nomeUsuarioInvalido();
+            }
+        }
+        catch(nomeUsuarioInvalido ex)
+        {
+            JOptionPane.showMessageDialog(null, "ERRO: O nome de usuário deve ter pelo menos 2 caracteres.", "Erro", JOptionPane.WARNING_MESSAGE);
+            nome = recebeNome();
+        }
+
+        return nome;
     }
 
     // ------------------ PRINTS ---------------------------------- //

@@ -6,10 +6,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +27,8 @@ public class Partida {
     private int pontuacaoJ2;
     private Jogador vencedor;
     private Jogador perdedor;
+    private int numJogadas;
+    private int numPassar;
     private int id;
 
     public Partida(Jogador j1, Jogador j2){
@@ -31,12 +36,15 @@ public class Partida {
         this.j2 = j2;
         pontuacaoJ1 = 0;
         pontuacaoJ2 = 0;
+        this.numPassar = 0;
     }
 
     public void imprimePartida(String frase1, String frase2
             , int jogadaJ1, int jogadaJ2, Jogador j1, Jogador j2, Jogador vencedor){
         String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
-
+        
+        
+        numPassar = 0;
         JFrame frame = new JFrame("Partida");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,19 +52,31 @@ public class Partida {
         painel.setLayout(new BorderLayout());
         painel.setBackground(Color.white);
         frame.getContentPane().add (painel);
+        frame.setLocationRelativeTo(null);
 
 
         // tentar botar texto
-
-        JLabel jlabel = new JLabel(j1.getNome() + ": " + resultados[jogadaJ1] + " // " + j2.getNome() + ": " + resultados[jogadaJ2]);
+        
+        JPanel painelFrase = new JPanel();
+        painelFrase.setLayout(new BorderLayout());
+        JLabel jlabel = new JLabel(j1.getNome() + ": " + resultados[jogadaJ1] + " | " + j2.getNome() + ": " + resultados[jogadaJ2] +
+                "\n");
         jlabel.setFont(new Font("Arial",0,30));
         jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        painel.add(jlabel, BorderLayout.NORTH);
-        JLabel parabens = new JLabel(frase1 + vencedor.getNome() + frase2);
+        painelFrase.add(jlabel, BorderLayout.NORTH);
+        JLabel parabens;
+        if(vencedor == null)  // caso de empate
+        {
+            parabens = new JLabel(frase1 + frase2);
+        }
+        else  // caso não empate
+        {
+            parabens = new JLabel(frase1 + vencedor.getNome() + frase2);
+        }
         parabens.setFont(new Font("Arial", 0, 20));
         parabens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        painel.add(parabens, BorderLayout.SOUTH);
-        frame.setLocationRelativeTo(null);
+        painelFrase.add(parabens, BorderLayout.SOUTH);
+        painel.add(painelFrase, BorderLayout.NORTH);
 
         // Colocando imagem
 
@@ -75,8 +95,42 @@ public class Partida {
         iconeJ2 = new ImageIcon(newimg2);
         JLabel jogada2 = new JLabel(iconeJ2);
         painel.add(jogada2, BorderLayout.EAST);
-
+        
+        JButton passar = new JButton("Próximo"); 
+        passar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                frame.setVisible(false);
+                setNumPassar(1);
+            }
+        });
+       
+        painel.add(passar, BorderLayout.PAGE_END);
         frame.setVisible(true);
+        
+        int placeholder = 0;
+        while(numPassar == 0)
+        {
+            System.out.print("");
+        }
+        
+    }
+
+    public void setNumPassar(int numPassar) {
+        this.numPassar = numPassar;
+    }
+
+    public int getNumJogadas() {
+        return numJogadas;
+    }
+    
+    public boolean checaContinuarPartida()
+    {
+        return this.numJogadas < 3 || (this.pontuacaoJ1 == this.pontuacaoJ2);
+    }
+
+    public void setNumJogadas(int numJogadas) {
+        this.numJogadas = numJogadas;
     }
 
     public Jogador simulador(){
@@ -237,7 +291,8 @@ public class Partida {
                     pontuacaoJ2++;
                     break;
                 default:
-                    System.out.println("Empate");
+                    vencedorImprime = null;
+                    this.imprimePartida("", "Empate", jogadaJ1, jogadaJ2, j1, j2, vencedorImprime);
             }
 
             i++;
