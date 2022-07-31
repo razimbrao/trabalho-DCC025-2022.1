@@ -42,8 +42,7 @@ public class Partida {
     public void imprimePartida(String frase1, String frase2
             , int jogadaJ1, int jogadaJ2, Jogador j1, Jogador j2, Jogador vencedor){
         String[] resultados = {"pedra", "papel", "tesoura", "lagarto", "spock"};
-        
-        
+
         numPassar = 0;
         JFrame frame = new JFrame("Partida");
         frame.setSize(600, 400);
@@ -56,7 +55,7 @@ public class Partida {
 
 
         // tentar botar texto
-        
+
         JPanel painelFrase = new JPanel();
         painelFrase.setLayout(new BorderLayout());
         JLabel jlabel = new JLabel(j1.getNome() + ": " + resultados[jogadaJ1] + " | " + j2.getNome() + ": " + resultados[jogadaJ2] +
@@ -95,8 +94,8 @@ public class Partida {
         iconeJ2 = new ImageIcon(newimg2);
         JLabel jogada2 = new JLabel(iconeJ2);
         painel.add(jogada2, BorderLayout.EAST);
-        
-        JButton passar = new JButton("Próximo"); 
+
+        JButton passar = new JButton("Próximo");
         passar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -104,16 +103,16 @@ public class Partida {
                 setNumPassar(1);
             }
         });
-       
+
         painel.add(passar, BorderLayout.PAGE_END);
         frame.setVisible(true);
-        
+
         int placeholder = 0;
         while(numPassar == 0)
         {
             System.out.print("");
         }
-        
+
     }
 
     public void setNumPassar(int numPassar) {
@@ -123,7 +122,7 @@ public class Partida {
     public int getNumJogadas() {
         return numJogadas;
     }
-    
+
     public boolean checaContinuarPartida()
     {
         return this.numJogadas < 3 || (this.pontuacaoJ1 == this.pontuacaoJ2);

@@ -17,6 +17,7 @@ import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.management.openmbean.TabularType;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,12 +49,12 @@ public class Campeonato {
 
     public Campeonato(int n) { // informa qual o tamanho do campeonato
         this.tamanho = n; // TODO: por try/catch depois
-        String[] opcoesJogo = {"Simular", "Jogar"};
-        int opcaoJogo = JOptionPane.showOptionDialog(null, "Selecione o modo de jogo:", "Modo de Jogo"
-                ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesJogo, opcoesJogo[1]);
-         if (opcaoJogo == 1)
+        String[] opcoesJogo = { "Simular", "Jogar" };
+        int opcaoJogo = JOptionPane.showOptionDialog(null, "Selecione o modo de jogo:", "Modo de Jogo",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesJogo, opcoesJogo[1]);
+        if (opcaoJogo == 1)
             this.temUsuario = true;
-         else
+        else
             this.temUsuario = false;
         this.proxChaveamento = true;
     }
@@ -89,7 +90,7 @@ public class Campeonato {
 
         for (; i < vetJogador.length; i++) {
             aux = faker.pokemon().name();
-            if(!nome.equals(aux))
+            if (!nome.equals(aux))
                 nome = aux;
             else
                 nome = faker.pokemon().name();
@@ -108,7 +109,7 @@ public class Campeonato {
     }
 
     public void chaveamento() { // faz o chaveamento do campeonato
-        this.proxChaveamento = false;
+        // this.proxChaveamento = false;
         if (this.tamanho == 8) {
             // oitavas
             for (int i = 0; i < 4; i++)
@@ -139,7 +140,7 @@ public class Campeonato {
             partidaFinal = new Partida(asaEsquerda.get(0).getVencedor(), asaDireita.get(0).getVencedor());
             telaChaveamento("Final");
         }
-        //printChaveamento();
+        // printChaveamento();
     }
 
     public void resolveNivel() {
@@ -170,8 +171,7 @@ public class Campeonato {
             inserePartidas();
 
             this.tamanho = 4;
-            if(proxChaveamento)
-                chaveamento();
+            chaveamento();
         }
 
         if (this.tamanho == 4) {
@@ -217,19 +217,88 @@ public class Campeonato {
         }
     }
 
-    public String recebeNome()
-    {
-        String nome = JOptionPane.showInputDialog("Insira o nome do usuário:");
-        try{
+    public void resolveNivel2(int tam) {
+        switch (tam) {
+            case 8:
+                System.out.println("entrou no case 8");
+                this.numPartidaMax = 7;
+                this.numPartidaAtual = 0;
 
-            if(nome.length() < 2)
-            {
+                Jogador vetO[] = new Jogador[tamanho];
+                vetO[0] = asaEsquerda.get(0).simulador();
+                vetO[1] = asaEsquerda.get(1).simulador();
+                vetO[2] = asaEsquerda.get(2).simulador();
+                vetO[3] = asaEsquerda.get(3).simulador();
+                vetO[4] = asaDireita.get(0).simulador();
+                vetO[5] = asaDireita.get(1).simulador();
+                vetO[6] = asaDireita.get(2).simulador();
+                vetO[7] = asaDireita.get(3).simulador();
+
+                for (Jogador jogador : vetO) {
+                    listaJogadoresAux.add(jogador);
+                }
+
+                listaJogadores.clear();
+                listaPartidas.clear();
+                listaJogadores = new ArrayList<>(listaJogadoresAux);
+                listaJogadoresAux.clear();
+                inserePartidas();
+
+                this.tamanho = 4;
+                chaveamento();
+                break;
+            case 4:
+                System.out.println("entrou no case 4");
+                Jogador vetQ[] = new Jogador[tamanho];
+                vetQ[0] = asaEsquerda.get(0).simulador();
+                vetQ[1] = asaEsquerda.get(1).simulador();
+                vetQ[2] = asaDireita.get(0).simulador();
+                vetQ[3] = asaDireita.get(1).simulador();
+
+                for (Jogador jogador : vetQ) {
+                    listaJogadoresAux.add(jogador);
+                }
+
+                listaJogadores.clear();
+                listaPartidas.clear();
+                listaJogadores = new ArrayList<>(listaJogadoresAux);
+                inserePartidas();
+
+                this.tamanho = 2;
+                chaveamento();
+                break;
+            case 2:
+                Jogador v1 = asaEsquerda.get(0).simulador();
+                listaJogadoresAux.add(v1);
+
+                Jogador v2 = asaDireita.get(0).simulador();
+                listaJogadoresAux.add(v2);
+
+                System.out.println("entrou no case 2");
+                this.tamanho = 0;
+                chaveamento();
+                break;
+            case 0:
+                System.out.println("entrou no case 0");
+                Jogador campeao = partidaFinal.simulador();
+                this.mensagemVencedorFinal(campeao);
+                break;
+            default:
+                System.out.println("entrou no default");
+                break;
+        }
+    }
+
+    public String recebeNome() {
+        String nome = JOptionPane.showInputDialog("Insira o nome do usuário:");
+        try {
+
+            if (nome.length() < 2) {
                 throw new nomeUsuarioInvalido();
             }
-        }
-        catch(nomeUsuarioInvalido ex)
-        {
-            JOptionPane.showMessageDialog(null, "ERRO: O nome de usuário deve ter pelo menos 2 caracteres.", "Erro", JOptionPane.WARNING_MESSAGE);
+        } catch (nomeUsuarioInvalido ex) {
+            JOptionPane.showMessageDialog(null, "ERRO: O nome de usuário deve ter pelo menos 2 caracteres.", "Erro",
+                    JOptionPane.WARNING_MESSAGE);
             nome = recebeNome();
         }
 
@@ -242,16 +311,15 @@ public class Campeonato {
         JFrame frame = new JFrame("Vencedor");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel painel = new JPanel ();
+        JPanel painel = new JPanel();
         painel.setLayout(new BorderLayout());
         painel.setBackground(Color.white);
-        frame.getContentPane().add (painel);
-
+        frame.getContentPane().add(painel);
 
         // tentar botar texto
 
         JLabel jlabel = new JLabel(campeao.getNome() + " venceu o campeonato!");
-        jlabel.setFont(new Font("Arial",0,30));
+        jlabel.setFont(new Font("Arial", 0, 30));
         jlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         painel.add(jlabel, BorderLayout.NORTH);
         JLabel parabens = new JLabel("Parabéns!");
@@ -264,8 +332,8 @@ public class Campeonato {
 
         ImageIcon iconeTrofeu = new ImageIcon("trofeu.jpg");
         Image image = iconeTrofeu.getImage(); // transform it
-        Image newimg = image.getScaledInstance(300, 300,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        iconeTrofeu = new ImageIcon(newimg);  // transform it back
+        Image newimg = image.getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        iconeTrofeu = new ImageIcon(newimg); // transform it back
         JLabel trofeu = new JLabel(iconeTrofeu);
         painel.add(trofeu, BorderLayout.CENTER);
 
@@ -282,15 +350,14 @@ public class Campeonato {
         JPanel painel = new JPanel();
         painel.setLayout(new BorderLayout());
 
-        //titulo do painel
+        // titulo do painel
         JLabel titulo = new JLabel("Chaveamento - " + fase);
         titulo.setFont(new Font("Arial", 0, 30));
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titulo.setBackground(Color.white);
         painel.add(titulo, BorderLayout.PAGE_START);
 
-
-        //painel com as Asas
+        // painel com as Asas
         JPanel painelAsas = new JPanel();
         GridLayout gridAsas = new GridLayout(1, 2);
         painelAsas.setLayout(gridAsas);
@@ -304,29 +371,31 @@ public class Campeonato {
         asaD.setEditable(false);
         asaE.setText("  ASA ESQUERDA");
         for (Partida p : asaEsquerda) {
-            asaE.setText(asaE.getText() + "\n" + (p.getId() + 1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
+            asaE.setText(
+                    asaE.getText() + "\n" + (p.getId() + 1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
         }
         asaE.setMargin(new Insets(80, 80, 25, 25));
         painelAsas.add(asaE, BorderLayout.CENTER);
         asaD.setText("  ASA DIREITA");
         for (Partida p : asaDireita) {
-            asaD.setText(asaD.getText() + "\n" + (p.getId() + 1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
+            asaD.setText(
+                    asaD.getText() + "\n" + (p.getId() + 1) + ": " + p.getJ1().getNome() + " x " + p.getJ2().getNome());
         }
         asaD.setMargin(new Insets(80, 25, 25, 80));
         painelAsas.add(asaD, BorderLayout.CENTER);
         painel.add(painelAsas, BorderLayout.CENTER);
 
-        //painel com o botao
+        // painel com o botao
         JButton passar = new JButton("Próximo");
         painel.add(passar, BorderLayout.PAGE_END);
         frame.add(painel);
         frame.setVisible(true);
-        passar.addActionListener(new ActionListener(){
+        passar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                proxChaveamento = true;
-                resolveNivel();
+                // proxChaveamento = true;
+                resolveNivel2(tamanho);
             }
         });
     }
