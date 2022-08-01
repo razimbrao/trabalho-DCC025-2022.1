@@ -227,9 +227,9 @@ public class Campeonato {
         try {
 
             if (nome.length() < 2) {
-                throw new nomeUsuarioInvalido();
+                throw new NomeUsuarioInvalido();
             }
-        } catch (nomeUsuarioInvalido ex) {
+        } catch (NomeUsuarioInvalido ex) {
             JOptionPane.showMessageDialog(null, "ERRO: O nome de usuário deve ter pelo menos 2 caracteres.", "Erro",
                     JOptionPane.WARNING_MESSAGE);
             nome = recebeNome();

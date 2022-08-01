@@ -8,9 +8,9 @@ package com.trabalho;
  *
  * @author lilik
  */
-public class nomeUsuarioInvalido extends Exception {
+public class NomeUsuarioInvalido extends Exception {
 
-    public nomeUsuarioInvalido() {
+    public NomeUsuarioInvalido() {
     }
     
 }
