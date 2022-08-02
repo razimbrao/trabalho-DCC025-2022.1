@@ -3,11 +3,12 @@ package com.trabalho;
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 
-public abstract class Jogador {
+public abstract class Jogador implements Comparable<Jogador>{
     private String nome;
     private static int nJogadores;
     private boolean ehBot;
     private int id;
+    private int nVitorias;
 
     public abstract int selecionaJogada();
 
@@ -37,6 +38,19 @@ public abstract class Jogador {
 
     public void setEhBot(boolean x) {
         this.ehBot = x;
+    }
+    
+    public int getnVitorias() {
+        return nVitorias;
+    }
+    
+    public void atualizaNumVitorias(){
+        this.nVitorias++;
+    }
+
+    @Override
+    public int compareTo(Jogador auxJogador) {
+        return (auxJogador.getnVitorias() - this.nVitorias);
     }
 }
 

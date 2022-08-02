@@ -292,9 +292,11 @@ public class Partida {
         if (pontuacaoJ1 > pontuacaoJ2) {
             this.vencedor = j1;
             this.perdedor = j2;
+            j1.atualizaNumVitorias();
         } else {
             this.vencedor = j2;
             this.perdedor = j1;
+            j2.atualizaNumVitorias();
         }
 
 /*         System.out.println("O vencedor eh " + vencedor.getNome());
