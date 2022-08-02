@@ -6,9 +6,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -103,7 +100,6 @@ public class Partida {
         painel.add(passar, BorderLayout.PAGE_END);
         frame.setVisible(true);
 
-        int placeholder = 0;
         while (numPassar == 0) {
             System.out.print("");
         }
