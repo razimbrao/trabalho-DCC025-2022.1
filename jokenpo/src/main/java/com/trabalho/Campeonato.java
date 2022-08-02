@@ -28,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -358,12 +359,14 @@ public class Campeonato {
     public void configuraTelaVitorias(){
         ordenaListaVitorias();
         JFrame frame = new JFrame("Vitórias");
-        frame.setSize(500, 400);
+        frame.setSize(500, 380);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         
         JPanel jpJogadores = new JPanel();
         jpJogadores.setBorder(BorderFactory.createTitledBorder("Jogadores"));
         jpJogadores.setLayout(new BorderLayout());
-        jpJogadores.setPreferredSize(new Dimension(300, 400));
+        jpJogadores.setPreferredSize(new Dimension(300, 355));
         
         JList<String> listaJ;
         DefaultListModel<String> model = new DefaultListModel<>();
@@ -378,7 +381,7 @@ public class Campeonato {
         JPanel jpVitorias = new JPanel();
         jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitórias"));
         jpVitorias.setLayout(new BorderLayout());
-        jpVitorias.setPreferredSize(new Dimension(185, 400));
+        jpVitorias.setPreferredSize(new Dimension(185, 355));
         
         JList<Integer> listaV;
         DefaultListModel<Integer> model2 = new DefaultListModel<>();
@@ -390,8 +393,12 @@ public class Campeonato {
         jpVitorias.add(new JScrollPane(listaV), BorderLayout.CENTER);
         
         
+        JButton jbPassar = new JButton("Próximo");
+        
+        
         frame.add(jpJogadores, BorderLayout.WEST);
         frame.add(jpVitorias, BorderLayout.EAST);
+        frame.add(jbPassar, BorderLayout.PAGE_END);
         frame.setVisible(true);
     }
 
