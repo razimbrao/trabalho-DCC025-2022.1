@@ -239,6 +239,7 @@ public class Campeonato {
                 break;
             case 0:
                 Jogador campeao = resolvePartida(partidaFinal);
+                this.configuraTelaVitorias();
                 this.mensagemVencedorFinal(campeao);
                 break;
             default:
@@ -355,7 +356,8 @@ public class Campeonato {
     }
     
     public void configuraTelaVitorias(){
-        JFrame frame = new JFrame("Vitorias");
+        ordenaListaVitorias();
+        JFrame frame = new JFrame("Vitórias");
         frame.setSize(500, 400);
         
         JPanel jpJogadores = new JPanel();
@@ -363,20 +365,26 @@ public class Campeonato {
         jpJogadores.setLayout(new BorderLayout());
         jpJogadores.setPreferredSize(new Dimension(300, 400));
         
-        JList<Jogador> listaJ;
-        DefaultListModel<Jogador> model = new DefaultListModel<>();
+        JList<String> listaJ;
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for(Jogador jogador : listaVitorias){
+            model.addElement(jogador.getNome());
+        }
         listaJ = new JList<>(model);
         listaJ.setVisible(true);
         jpJogadores.add(new JScrollPane(listaJ), BorderLayout.CENTER);
         
         
         JPanel jpVitorias = new JPanel();
-        jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitorias"));
+        jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitórias"));
         jpVitorias.setLayout(new BorderLayout());
         jpVitorias.setPreferredSize(new Dimension(185, 400));
         
         JList<Integer> listaV;
         DefaultListModel<Integer> model2 = new DefaultListModel<>();
+        for(Jogador jogador : listaVitorias){
+            model2.addElement(jogador.getnVitorias());
+        }
         listaV = new JList<>(model2);
         listaV.setVisible(true);
         jpVitorias.add(new JScrollPane(listaV), BorderLayout.CENTER);
