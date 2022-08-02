@@ -22,9 +22,15 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.github.javafaker.Faker;
+import java.awt.Dimension;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
@@ -56,6 +62,7 @@ public class Campeonato {
 
     public void addJogador(Jogador x) { // add o jogador na listaJogadores
         this.listaJogadores.add(x);
+        this.listaVitorias.add(x);
         this.nJogadores++;
         int id = this.nJogadores - 1;
         x.setId(id);
@@ -101,6 +108,22 @@ public class Campeonato {
             addPartida(listaJogadores.get(i), listaJogadores.get(j));
             j--;
         }
+    }
+    
+    public void ordenaListaVitorias(){
+        /*
+        Jogador[] vetVitorias = new Jogador[tamanho * 2];
+        
+        for(int i = 0; i < (tamanho * 2) - 1; i++){
+            if(vetVitorias[i].getnVitorias() < vetVitorias[i+1].getnVitorias()){
+                Jogador aux;
+                aux = vetVitorias[i];
+                vetVitorias[i] = vetVitorias[i+1];
+                vetVitorias[i+1] = aux;
+            }
+        }   
+        */
+        Collections.sort(listaVitorias);
     }
 
     public void chaveamento() { // faz o chaveamento do campeonato
@@ -329,6 +352,39 @@ public class Campeonato {
         });
         timer.setRepeats(false);
         timer.start();
+    }
+    
+    public void configuraTelaVitorias(){
+        JFrame frame = new JFrame("Vitorias");
+        frame.setSize(500, 400);
+        
+        JPanel jpJogadores = new JPanel();
+        jpJogadores.setBorder(BorderFactory.createTitledBorder("Jogadores"));
+        jpJogadores.setLayout(new BorderLayout());
+        jpJogadores.setPreferredSize(new Dimension(300, 400));
+        
+        JList<Jogador> listaJ;
+        DefaultListModel<Jogador> model = new DefaultListModel<>();
+        listaJ = new JList<>(model);
+        listaJ.setVisible(true);
+        jpJogadores.add(new JScrollPane(listaJ), BorderLayout.CENTER);
+        
+        
+        JPanel jpVitorias = new JPanel();
+        jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitorias"));
+        jpVitorias.setLayout(new BorderLayout());
+        jpVitorias.setPreferredSize(new Dimension(185, 400));
+        
+        JList<Integer> listaV;
+        DefaultListModel<Integer> model2 = new DefaultListModel<>();
+        listaV = new JList<>(model2);
+        listaV.setVisible(true);
+        jpVitorias.add(new JScrollPane(listaV), BorderLayout.CENTER);
+        
+        
+        frame.add(jpJogadores, BorderLayout.WEST);
+        frame.add(jpVitorias, BorderLayout.EAST);
+        frame.setVisible(true);
     }
 
     public void telaFinal() {
