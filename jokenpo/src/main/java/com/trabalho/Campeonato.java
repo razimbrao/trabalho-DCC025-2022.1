@@ -41,6 +41,7 @@ public class Campeonato {
     private List<Jogador> listaJogadoresAux = new ArrayList<>();
     private List<Partida> asaEsquerda = new ArrayList<>();
     private List<Partida> asaDireita = new ArrayList<>();
+    private List<Jogador> listaVitorias = new ArrayList<>();
 
     public Campeonato(int n) { // informa qual o tamanho do campeonato
         this.tamanho = n;
