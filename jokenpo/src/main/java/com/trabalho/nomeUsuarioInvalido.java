@@ -12,5 +12,5 @@ public class NomeUsuarioInvalido extends Exception {
 
     public NomeUsuarioInvalido() {
     }
-    
+
 }
