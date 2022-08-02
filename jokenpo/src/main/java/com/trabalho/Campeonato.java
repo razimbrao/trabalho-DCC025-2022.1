@@ -112,18 +112,6 @@ public class Campeonato {
     }
     
     public void ordenaListaVitorias(){
-        /*
-        Jogador[] vetVitorias = new Jogador[tamanho * 2];
-        
-        for(int i = 0; i < (tamanho * 2) - 1; i++){
-            if(vetVitorias[i].getnVitorias() < vetVitorias[i+1].getnVitorias()){
-                Jogador aux;
-                aux = vetVitorias[i];
-                vetVitorias[i] = vetVitorias[i+1];
-                vetVitorias[i+1] = aux;
-            }
-        }   
-        */
         Collections.sort(listaVitorias);
     }
 
@@ -240,8 +228,7 @@ public class Campeonato {
                 break;
             case 0:
                 Jogador campeao = resolvePartida(partidaFinal);
-                this.configuraTelaVitorias();
-                this.mensagemVencedorFinal(campeao);
+                this.imprimeTelaVitorias(campeao);
                 break;
             default:
                 break;
@@ -356,7 +343,7 @@ public class Campeonato {
         timer.start();
     }
     
-    public void configuraTelaVitorias(){
+    public void imprimeTelaVitorias(Jogador campeao){
         ordenaListaVitorias();
         JFrame frame = new JFrame("Vitórias");
         frame.setSize(500, 380);
@@ -394,12 +381,19 @@ public class Campeonato {
         
         
         JButton jbPassar = new JButton("Próximo");
-        
+
         
         frame.add(jpJogadores, BorderLayout.WEST);
         frame.add(jpVitorias, BorderLayout.EAST);
         frame.add(jbPassar, BorderLayout.PAGE_END);
         frame.setVisible(true);
+        jbPassar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                mensagemVencedorFinal(campeao);
+            }
+        });
     }
 
     public void telaFinal() {
