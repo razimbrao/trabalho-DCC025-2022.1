@@ -21,7 +21,7 @@ import javax.management.openmbean.TabularType;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import com.github.javafaker.Faker;
+import net.datafaker.Faker;
 import java.awt.Dimension;
 import java.util.Collections;
 import java.util.logging.Level;
@@ -110,7 +110,7 @@ public class Campeonato {
             j--;
         }
     }
-    
+
     public void ordenaListaVitorias(){
         Collections.sort(listaVitorias);
     }
@@ -342,19 +342,19 @@ public class Campeonato {
         timer.setRepeats(false);
         timer.start();
     }
-    
+
     public void imprimeTelaVitorias(Jogador campeao){
         ordenaListaVitorias();
         JFrame frame = new JFrame("Vitórias");
         frame.setSize(500, 380);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        
+
         JPanel jpJogadores = new JPanel();
         jpJogadores.setBorder(BorderFactory.createTitledBorder("Jogadores"));
         jpJogadores.setLayout(new BorderLayout());
         jpJogadores.setPreferredSize(new Dimension(300, 355));
-        
+
         JList<String> listaJ;
         DefaultListModel<String> model = new DefaultListModel<>();
         for(Jogador jogador : listaVitorias){
@@ -363,13 +363,13 @@ public class Campeonato {
         listaJ = new JList<>(model);
         listaJ.setVisible(true);
         jpJogadores.add(new JScrollPane(listaJ), BorderLayout.CENTER);
-        
-        
+
+
         JPanel jpVitorias = new JPanel();
         jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitórias"));
         jpVitorias.setLayout(new BorderLayout());
         jpVitorias.setPreferredSize(new Dimension(185, 355));
-        
+
         JList<Integer> listaV;
         DefaultListModel<Integer> model2 = new DefaultListModel<>();
         for(Jogador jogador : listaVitorias){
@@ -378,11 +378,11 @@ public class Campeonato {
         listaV = new JList<>(model2);
         listaV.setVisible(true);
         jpVitorias.add(new JScrollPane(listaV), BorderLayout.CENTER);
-        
-        
+
+
         JButton jbPassar = new JButton("Próximo");
 
-        
+
         frame.add(jpJogadores, BorderLayout.WEST);
         frame.add(jpVitorias, BorderLayout.EAST);
         frame.add(jbPassar, BorderLayout.PAGE_END);
