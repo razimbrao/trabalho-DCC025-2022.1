@@ -23,8 +23,8 @@ public class Tela extends JFrame {
     JList<String> listaJ;
     JList<Integer> listaV;
     private int lastIndex;
-    private JTextField tfVitorias;
-    private JTextField tfNome;
+    private JTextField tfVitorias = new JTextField();
+    private JTextField tfNome = new JTextField();
 
 
     public JTextField getTfNome() {

@@ -21,6 +21,7 @@ public class EditarLista implements ActionListener{
         ListModel<Usuario> model = this.tela.getListaUsuarios().getModel();
         Usuario usuario = model.getElementAt(tela.getLastIndex());
         int vitorias = Integer.parseInt(tela.getTfVitorias().getText());
+        System.out.println("entrou vit:" + vitorias);
         usuario.setnVitorias(vitorias);
         frame.repaint();
     }
