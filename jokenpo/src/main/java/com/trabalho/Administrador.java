@@ -18,7 +18,7 @@ public class Administrador extends Jogador{
         super(x);
         setEhBot(false);
     }
-    
+
     @Override
     public int selecionaJogada() {
         String[] opcoesJogada = {"Pedra", "Papel", "Tesoura", "Lagarto", "Spock"};

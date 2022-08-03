@@ -43,6 +43,10 @@ public abstract class Jogador implements Comparable<Jogador>{
     public int getnVitorias() {
         return nVitorias;
     }
+
+    public void setnVitorias(int nVitorias) {
+        this.nVitorias = nVitorias;
+    }
     
     public void atualizaNumVitorias(){
         this.nVitorias++;

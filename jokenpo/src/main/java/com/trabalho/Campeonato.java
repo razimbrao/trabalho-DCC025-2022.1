@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import net.datafaker.Faker;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,8 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListModel;
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
@@ -238,7 +241,10 @@ public class Campeonato {
                 break;
             case 0:
                 Jogador campeao = resolvePartida(partidaFinal);
-                this.imprimeTelaVitorias(campeao);
+                if(temAdm == true)
+                    this.configuraTelaVitoriasAdm(campeao);
+                else
+                    this.imprimeTelaVitorias(campeao);
                 break;
             default:
                 break;
@@ -426,6 +432,229 @@ public class Campeonato {
             }
         });
     }
+    
+    
+    
+    public void configuraTelaVitoriasAdm(Jogador campeao){
+        ordenaListaVitorias();
+        JFrame frame = new JFrame("Vitórias");
+        frame.setSize(500, 380); //500, 380
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+
+        JPanel jpJogadores = new JPanel();
+        jpJogadores.setBorder(BorderFactory.createTitledBorder("Jogadores"));
+        jpJogadores.setLayout(new BorderLayout());
+        jpJogadores.setPreferredSize(new Dimension(300, 355));
+
+        JList<String> listaJ;
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for(Jogador jogador : listaVitorias){
+            model.addElement(jogador.getNome());
+        }
+        listaJ = new JList<>(model);
+        listaJ.setVisible(true);
+        jpJogadores.add(new JScrollPane(listaJ), BorderLayout.CENTER);
+
+
+        JPanel jpVitorias = new JPanel();
+        jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitórias"));
+        jpVitorias.setLayout(new BorderLayout());
+        jpVitorias.setPreferredSize(new Dimension(75, 355)); //185, 355
+
+        JList<Integer> listaV;
+        DefaultListModel<Integer> model2 = new DefaultListModel<>();
+        for(Jogador jogador : listaVitorias){
+            model2.addElement(jogador.getnVitorias());
+        }
+        listaV = new JList<>(model2);
+        listaV.setVisible(true);
+        jpVitorias.add(new JScrollPane(listaV), BorderLayout.CENTER);
+        
+        
+        JPanel jpConfigura = new JPanel();
+        jpConfigura.setBorder(BorderFactory.createTitledBorder("Configuração"));
+        jpConfigura.setLayout(new FlowLayout());
+        jpConfigura.setPreferredSize(new Dimension(100, 355));
+        jpConfigura.add(new JLabel("Vitórias:"));
+        JTextField tfVitorias = new JTextField(5);
+        jpConfigura.add(tfVitorias);
+        JButton btnEditar = new JButton("Editar");
+        btnEditar.setPreferredSize(new Dimension(90, 20));
+        jpConfigura.add(btnEditar);
+        
+        // /*
+        btnEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ListModel<Integer> model;
+                model = listaV.getModel();
+                Jogador jogador = model.getElementAt(jpVitorias.getLastIndex());
+                jogador.setnVitorias(frame.tfVitorias.getText());
+                
+                frame.repaint();
+            }
+        });
+        // */
+        
+        JButton jbPassar = new JButton("Próximo");
+        jbPassar.setPreferredSize(new Dimension(500, 25));
+
+        frame.add(jpJogadores, BorderLayout.WEST);
+        frame.add(jpVitorias, BorderLayout.CENTER);
+        frame.add(jpConfigura, BorderLayout.EAST);
+        frame.add(jbPassar, BorderLayout.SOUTH);
+        frame.setVisible(true);
+        jbPassar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                mensagemVencedorFinal(campeao);
+            }
+        });
+    }    
+    
+    
+    /*
+    
+    public void configuraTelaVitoriasAdm(Jogador campeao){
+        ordenaListaVitorias();
+        JFrame frame = new JFrame("Vitórias");
+        frame.setSize(500, 380);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+
+        JPanel jpJogadores = new JPanel();
+        jpJogadores.setBorder(BorderFactory.createTitledBorder("Jogadores"));
+        jpJogadores.setLayout(new BorderLayout());
+        jpJogadores.setPreferredSize(new Dimension(300, 355));
+
+        JList<String> listaJ;
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for(Jogador jogador : listaVitorias){
+            model.addElement(jogador.getNome());
+        }
+        listaJ = new JList<>(model);
+        listaJ.setVisible(true);
+        jpJogadores.add(new JScrollPane(listaJ), BorderLayout.CENTER);
+        
+        
+        int size = 5;
+        JPanel jpVitorias = new JPanel();
+        jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitórias"));
+        jpVitorias.setPreferredSize(new Dimension(185, 355));
+        //jpVitorias.setLayout(new BorderLayout());
+        
+        if(tamanho == 2)
+            jpVitorias.setLayout(new GridLayout(4,1));
+        else if(tamanho == 4)
+            jpVitorias.setLayout(new GridLayout(8,1));
+        else if(tamanho == 8)
+            jpVitorias.setLayout(new GridLayout(16,1));
+        
+        
+        JTextField primeiro = new JTextField(size);
+        JTextField segundo = new JTextField(size);
+        JTextField terceiro = new JTextField(size);
+        JTextField quarto = new JTextField(size);
+        JTextField quinto = new JTextField(size);
+        JTextField sexto = new JTextField(size);
+        JTextField setimo = new JTextField(size);
+        JTextField oitavo = new JTextField(size);
+        JTextField nono = new JTextField(size);
+        JTextField decimo = new JTextField(size);
+        JTextField decPrimeiro = new JTextField(size);
+        JTextField decSegundo = new JTextField(size);
+        JTextField decTerceiro = new JTextField(size);
+        JTextField decQuarto = new JTextField(size);
+        JTextField decQuinto = new JTextField(size);
+        JTextField decSexto = new JTextField(size);
+        
+        if(tamanho == 2){
+            primeiro.setText(listaVitorias.get(0).getnVitorias() + "wvr");
+            segundo.setText(listaVitorias.get(1).getnVitorias() + "");
+            terceiro.setText(listaVitorias.get(2).getnVitorias() + "");
+            quarto.setText(listaVitorias.get(3).getnVitorias() + "");
+            
+            jpVitorias.add(new JLabel("Pri"));
+            jpVitorias.add(primeiro);
+            jpVitorias.add(new JLabel("Seg"));
+            jpVitorias.add(segundo);
+            jpVitorias.add(new JLabel("Ter"));
+            jpVitorias.add(terceiro);
+            jpVitorias.add(new JLabel("Quar"));
+            jpVitorias.add(quarto);
+        } else if(tamanho == 4){
+            primeiro.setText(listaVitorias.get(0).getnVitorias() + "");
+            segundo.setText(listaVitorias.get(1).getnVitorias() + "");
+            terceiro.setText(listaVitorias.get(2).getnVitorias() + "");
+            quarto.setText(listaVitorias.get(3).getnVitorias() + "");
+            quinto.setText(listaVitorias.get(4).getnVitorias() + "");
+            sexto.setText(listaVitorias.get(5).getnVitorias() + "");
+            setimo.setText(listaVitorias.get(6).getnVitorias() + "");
+            oitavo.setText(listaVitorias.get(7).getnVitorias() + "");
+            
+            jpVitorias.add(primeiro);
+            jpVitorias.add(segundo);
+            jpVitorias.add(terceiro);
+            jpVitorias.add(quarto);
+            jpVitorias.add(quinto);
+            jpVitorias.add(sexto);
+            jpVitorias.add(setimo);
+            jpVitorias.add(oitavo);
+        } else if(tamanho == 8){
+            primeiro.setText(listaVitorias.get(0).getnVitorias() + "");
+            segundo.setText(listaVitorias.get(1).getnVitorias() + "");
+            terceiro.setText(listaVitorias.get(2).getnVitorias() + "");
+            quarto.setText(listaVitorias.get(3).getnVitorias() + "");
+            quinto.setText(listaVitorias.get(4).getnVitorias() + "");
+            sexto.setText(listaVitorias.get(5).getnVitorias() + "");
+            setimo.setText(listaVitorias.get(6).getnVitorias() + "");
+            oitavo.setText(listaVitorias.get(7).getnVitorias() + "");
+            nono.setText(listaVitorias.get(8).getnVitorias() + "");
+            decimo.setText(listaVitorias.get(9).getnVitorias() + "");
+            decPrimeiro.setText(listaVitorias.get(10).getnVitorias() + "");
+            decSegundo.setText(listaVitorias.get(11).getnVitorias() + "");
+            decTerceiro.setText(listaVitorias.get(12).getnVitorias() + "");
+            decQuarto.setText(listaVitorias.get(13).getnVitorias() + "");
+            decQuinto.setText(listaVitorias.get(14).getnVitorias() + "");
+            decSexto.setText(listaVitorias.get(15).getnVitorias() + "");
+            
+            jpVitorias.add(primeiro);
+            jpVitorias.add(segundo);
+            jpVitorias.add(terceiro);
+            jpVitorias.add(quarto);
+            jpVitorias.add(quinto);
+            jpVitorias.add(sexto);
+            jpVitorias.add(setimo);
+            jpVitorias.add(oitavo);
+            jpVitorias.add(nono);
+            jpVitorias.add(decimo);
+            jpVitorias.add(decPrimeiro);
+            jpVitorias.add(decSegundo);
+            jpVitorias.add(decTerceiro);
+            jpVitorias.add(decQuarto);
+            jpVitorias.add(decQuinto);
+            jpVitorias.add(decSexto);
+        }
+        
+        
+        JButton jbPassar = new JButton("Próximo");
+
+        frame.add(jpJogadores, BorderLayout.WEST);
+        frame.add(jpVitorias, BorderLayout.EAST);
+        frame.add(jbPassar, BorderLayout.PAGE_END);
+        frame.setVisible(true);
+        jbPassar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                mensagemVencedorFinal(campeao);
+            }
+        });
+    }
+
+    */
 
     public void telaFinal() {
         JFrame frame = new JFrame("Chaveamento - FINAL");
