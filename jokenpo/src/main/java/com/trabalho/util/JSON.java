@@ -25,13 +25,13 @@ public class JSON {
         return gson.fromJson(json, Jogador.class);
     }
 
-    public static List<Bot> fromJSONArray(String json) {
+    public static List<Jogador> fromJSONArray(String json) {
 /*         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Bot.class, ); */
+        builder.registerTypeAdapter(Jogador.class, ); */
         Gson gson = new Gson();
         //TypeAdapter
-        //TypeAdapter adapter = gson.getAdapter(TypeToken.get(new TypeToken<List<Bot>>() {}.getType()));
-        Type listType = new TypeToken<ArrayList<Bot>>() {}.getType();
+        //TypeAdapter adapter = gson.getAdapter(TypeToken.get(new TypeToken<List<Jogador>>() {}.getType()));
+        Type listType = new TypeToken<ArrayList<Jogador>>() {}.getType();
         return gson.fromJson(json, listType);
     }
 }
