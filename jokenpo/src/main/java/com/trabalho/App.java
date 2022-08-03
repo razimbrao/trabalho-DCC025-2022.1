@@ -10,7 +10,8 @@ public final class App {
     }
 
     public static void main(String[] args) {
-
+        JOptionPane.showMessageDialog(null, "Bem Vindo ao Campeonato!",
+                "Pedra, Papel, Tesoura, Lagarto e Spock!", JOptionPane.INFORMATION_MESSAGE, null);
         String[] opcoesTamanho = { "Semifinal", "Quartas de final", "Oitavas de final" };
         int tamanho = JOptionPane.showOptionDialog(null, "Selecione o tamanho do campeonato desejado:",
                 "Tamanho da partida", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesTamanho,
