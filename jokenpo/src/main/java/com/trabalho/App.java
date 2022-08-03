@@ -20,10 +20,16 @@ public final class App {
         camp.inserePartidas();
         camp.chaveamento();
         tela.setJogoComecou(false);
+        enviarListaVitorias(tela, camp);
     }
+
+    public static void enviarListaVitorias(Tela tela, Campeonato camp) {
+        tela.setListaAux(camp.getListaVitorias());
+        tela.somaListas();
+    }
+
     public static void main(String[] args) {
         Tela tela = new Tela();
-        //loop ate for verdadeiro
         while(true){
             while (!tela.getJogoComecou()) {
                 try {

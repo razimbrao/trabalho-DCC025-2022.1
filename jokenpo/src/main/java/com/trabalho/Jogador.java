@@ -39,13 +39,17 @@ public abstract class Jogador implements Comparable<Jogador>{
     public void setEhBot(boolean x) {
         this.ehBot = x;
     }
-    
+
     public int getnVitorias() {
         return nVitorias;
     }
-    
+
     public void atualizaNumVitorias(){
         this.nVitorias++;
+    }
+
+    public void setnVitorias(int nVitorias) {
+        this.nVitorias = nVitorias;
     }
 
     @Override

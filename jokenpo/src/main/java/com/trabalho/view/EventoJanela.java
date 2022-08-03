@@ -19,8 +19,7 @@ public class EventoJanela implements WindowListener {
     public void windowOpened(java.awt.event.WindowEvent e) {
         try {
             String lerArquivo = Arquivo.lerArquivo("dados");
-            List<Jogador> listaVitorias = JSON.fromJSONArray(lerArquivo);
-
+            tela.setListaVitorias(JSON.fromJSONArray(lerArquivo));
         } catch (FileNotFoundException ex) {
         }
     }

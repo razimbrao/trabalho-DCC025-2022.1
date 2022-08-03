@@ -62,6 +62,11 @@ public class Campeonato {
         this.tela = tela;
     }
 
+    public List<Jogador> getListaVitorias() {
+        ordenaListaVitorias();
+        return listaVitorias;
+    }
+
     public void addJogador(Jogador x) { // add o jogador na listaJogadores
         this.listaJogadores.add(x);
         this.listaVitorias.add(x);
@@ -250,11 +255,6 @@ public class Campeonato {
         }
 
         return nome;
-    }
-
-    public List<Jogador> getListaVitorias() {
-        ordenaListaVitorias();
-        return listaVitorias;
     }
 
     // ------------------ TELAS ---------------------------------- //
