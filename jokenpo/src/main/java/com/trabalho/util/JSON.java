@@ -8,30 +8,27 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import com.trabalho.Jogador;
+import com.trabalho.Usuario;
 
 
 public class JSON {
-    public static String toJSON(Jogador jogador) {
+    public static String toJSON(Usuario usuario) {
         Gson gson = new Gson();
-        return gson.toJson(jogador);
+        return gson.toJson(usuario);
     }
-    public static String toJSON(List<Jogador> jogadores) {
+    public static String toJSON(List<Usuario> usuarios) {
         Gson gson = new Gson();
-        return gson.toJson(jogadores);
-    }
-
-    public static Jogador fromJSON(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, Jogador.class);
+        return gson.toJson(usuarios);
     }
 
-    public static List<Jogador> fromJSONArray(String json) {
-/*         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Jogador.class, ); */
+    public static Usuario fromJSON(String json) {
         Gson gson = new Gson();
-        //TypeAdapter
-        //TypeAdapter adapter = gson.getAdapter(TypeToken.get(new TypeToken<List<Jogador>>() {}.getType()));
-        Type listType = new TypeToken<ArrayList<Jogador>>() {}.getType();
+        return gson.fromJson(json, Usuario.class);
+    }
+
+    public static List<Usuario> fromJSONArray(String json) {
+        Gson gson = new Gson();
+        Type listType = new TypeToken<ArrayList<Usuario>>() {}.getType();
         return gson.fromJson(json, listType);
     }
 }

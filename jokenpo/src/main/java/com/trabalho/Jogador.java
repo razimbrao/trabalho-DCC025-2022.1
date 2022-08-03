@@ -12,6 +12,7 @@ public abstract class Jogador implements Comparable<Jogador>{
 
     public abstract int selecionaJogada();
 
+
     public String getNome() {
         return nome;
     }
@@ -19,6 +20,7 @@ public abstract class Jogador implements Comparable<Jogador>{
     public Jogador(String x){
         this.nome = x;
         nJogadores++;
+        this.nVitorias = 0;
     }
     public static int getnJogadores(){
         return nJogadores;

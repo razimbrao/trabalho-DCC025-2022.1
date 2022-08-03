@@ -33,7 +33,7 @@ public final class App {
         while(true){
             while (!tela.getJogoComecou()) {
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

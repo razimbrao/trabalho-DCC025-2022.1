@@ -48,7 +48,7 @@ public class Campeonato {
     private List<Jogador> listaJogadoresAux = new ArrayList<>();
     private List<Partida> asaEsquerda = new ArrayList<>();
     private List<Partida> asaDireita = new ArrayList<>();
-    private List<Jogador> listaVitorias = new ArrayList<>();
+    private List<Usuario> listaVitorias = new ArrayList<>();
 
     public Campeonato(int n, Tela tela) { // informa qual o tamanho do campeonato
         this.tamanho = n;
@@ -62,17 +62,20 @@ public class Campeonato {
         this.tela = tela;
     }
 
-    public List<Jogador> getListaVitorias() {
+    public List<Usuario> getListaVitorias() {
         ordenaListaVitorias();
         return listaVitorias;
     }
 
     public void addJogador(Jogador x) { // add o jogador na listaJogadores
         this.listaJogadores.add(x);
-        this.listaVitorias.add(x);
         this.nJogadores++;
         int id = this.nJogadores - 1;
         x.setId(id);
+        //se Jogador for Usuario, adiciona na listaVitorias
+        if (x instanceof Usuario) {
+            this.listaVitorias.add((Usuario) x);
+        }
     }
 
     public void addPartida(Jogador j1, Jogador j2) { // add a partida na listaPartidas
