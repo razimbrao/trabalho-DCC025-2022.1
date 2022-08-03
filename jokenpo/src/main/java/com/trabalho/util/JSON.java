@@ -4,6 +4,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import com.trabalho.Jogador;
 
@@ -23,9 +25,13 @@ public class JSON {
         return gson.fromJson(json, Jogador.class);
     }
 
-    public static List<Jogador> fromJSONArray(String json) {
+    public static List<Bot> fromJSONArray(String json) {
+/*         GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Bot.class, ); */
         Gson gson = new Gson();
-        Type listType = new TypeToken<ArrayList<Jogador>>() {}.getType();
+        //TypeAdapter
+        //TypeAdapter adapter = gson.getAdapter(TypeToken.get(new TypeToken<List<Bot>>() {}.getType()));
+        Type listType = new TypeToken<ArrayList<Bot>>() {}.getType();
         return gson.fromJson(json, listType);
     }
 }

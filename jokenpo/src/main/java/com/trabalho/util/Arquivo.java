@@ -19,6 +19,7 @@ public class Arquivo {
             conteudo.append(leitor.nextLine()).append("\n");
         }
         System.out.println("escrito: " + conteudo.toString());
+        leitor.close();
         return conteudo.toString();
     }
 
@@ -31,8 +32,8 @@ public class Arquivo {
             BufferedWriter bwArquivo = new BufferedWriter(fwArquivo);
             System.out.println("escrevendo: " + conteudo);
             bwArquivo.write(conteudo + "\n");
-            //fwArquivo.close();
             bwArquivo.close();
+            fwArquivo.close();
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo");
             e.printStackTrace();
