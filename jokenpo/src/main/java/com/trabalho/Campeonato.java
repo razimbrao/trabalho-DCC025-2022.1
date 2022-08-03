@@ -44,11 +44,11 @@ public class Campeonato {
     private Tela tela;
 
     private List<Jogador> listaJogadores = new ArrayList<>();
-    private List<Partida> listaPartidas = new ArrayList<>();
     private List<Jogador> listaJogadoresAux = new ArrayList<>();
+    private List<Usuario> listaVitorias = new ArrayList<>();
+    private List<Partida> listaPartidas = new ArrayList<>();
     private List<Partida> asaEsquerda = new ArrayList<>();
     private List<Partida> asaDireita = new ArrayList<>();
-    private List<Usuario> listaVitorias = new ArrayList<>();
 
     public Campeonato(int n, Tela tela) { // informa qual o tamanho do campeonato
         this.tamanho = n;

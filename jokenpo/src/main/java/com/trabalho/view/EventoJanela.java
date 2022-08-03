@@ -2,14 +2,12 @@ package com.trabalho.view;
 import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-import com.trabalho.*;
 import com.trabalho.util.*;
 
 
 public class EventoJanela implements WindowListener {
 
-    Tela tela;
+    private Tela tela;
 
     public EventoJanela(Tela tela) {
         this.tela = tela;
