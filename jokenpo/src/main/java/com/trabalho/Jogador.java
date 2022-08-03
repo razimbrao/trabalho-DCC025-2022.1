@@ -58,5 +58,11 @@ public abstract class Jogador implements Comparable<Jogador>{
     public int compareTo(Jogador auxJogador) {
         return (auxJogador.getnVitorias() - this.nVitorias);
     }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+
 }
 

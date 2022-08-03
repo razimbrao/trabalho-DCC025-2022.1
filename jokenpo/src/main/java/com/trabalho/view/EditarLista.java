@@ -18,14 +18,11 @@ public class EditarLista implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ListModel<Integer> model = this.tela.getListaV().getModel();
-        int vitorias = model.getElementAt(tela.getLastIndex());
-        tela.getTfVitorias().setText(String.valueOf(vitorias));
-        tela.getListaVitorias().get(0).setnVitorias(vitorias);
+        ListModel<Usuario> model = this.tela.getListaUsuarios().getModel();
+        Usuario usuario = model.getElementAt(tela.getLastIndex());
+        int vitorias = Integer.parseInt(tela.getTfVitorias().getText());
+        usuario.setnVitorias(vitorias);
         frame.repaint();
-        //tela.repaint();
-//        tela.getLista().setModel(model);
-
     }
 
 }

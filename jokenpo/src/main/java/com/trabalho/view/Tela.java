@@ -24,12 +24,29 @@ public class Tela extends JFrame {
     JList<Integer> listaV;
     private int lastIndex;
     private JTextField tfVitorias;
+    private JTextField tfNome;
+
+
+    public JTextField getTfNome() {
+        return tfNome;
+    }
+
+    public void setTfNome(JTextField tfNome) {
+        this.tfNome = tfNome;
+    }
 
     public JTextField getTfVitorias() {
         return tfVitorias;
     }
     public void setTfVitorias(JTextField tfVitorias) {
         this.tfVitorias = tfVitorias;
+    }
+
+    public JList<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+    public void setListaUsuarios(JList<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
 
     public int getLastIndex() {
@@ -111,7 +128,7 @@ public class Tela extends JFrame {
         ;
 
         try {
-            if (!senha.equals("Gleiph")) {
+            if (!senha.equals("")) {
                 throw new SenhaAdmInvalida();
             }
         } catch (SenhaAdmInvalida ex) {
@@ -231,46 +248,29 @@ public class Tela extends JFrame {
 
     public void configuraTelaVitoriasAdm() {
         JFrame frame = new JFrame("Vitórias");
-        frame.setSize(500, 380); // 500, 380
+        frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        JPanel painel = new JPanel();
 
         JPanel jpUsuarios = new JPanel();
-        jpUsuarios.setBorder(BorderFactory.createTitledBorder("Jogadores"));
+        jpUsuarios.setBorder(BorderFactory.createTitledBorder("Usuários"));
         jpUsuarios.setLayout(new BorderLayout());
         jpUsuarios.setPreferredSize(new Dimension(300, 355));
 
         DefaultListModel<Usuario> model = new DefaultListModel<>();
+        listaUsuarios = new JList<>(model);
+        listaUsuarios.setVisible(true);
+        listaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         for (Usuario usuario : listaVitorias) {
             model.addElement(usuario);
         }
-        listaUsuarios = new JList<>(model);
 
-        DefaultListModel<String> modelNome = new DefaultListModel<>();
-
-        for (Usuario usuario : listaVitorias) {
-            modelNome.addElement(usuario.getNome());
-        }
-
-        listaJ = new JList<>(modelNome);
-        listaJ.setVisible(true);
-        jpUsuarios.add(new JScrollPane(listaJ), BorderLayout.CENTER);
-
-        JPanel jpVitorias = new JPanel();
-        jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitórias"));
-        jpVitorias.setLayout(new BorderLayout());
-        jpVitorias.setPreferredSize(new Dimension(75, 355));
-
-        DefaultListModel<Integer> model2 = new DefaultListModel<>();
-        for (Jogador jogador : listaVitorias) {
-            model2.addElement(jogador.getnVitorias());
-        }
-        listaV = new JList<>(model2);
-        listaV.setVisible(true);
-        listaV.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        listaV.addListSelectionListener(new TratarLista(this));
-
-        jpVitorias.add(new JScrollPane(listaV), BorderLayout.CENTER);
+        listaUsuarios.setModel(model);
+        listaUsuarios.addListSelectionListener(new TratarLista(this));
+        jpUsuarios.add(new JScrollPane(listaUsuarios), BorderLayout.CENTER);
+        painel.add(jpUsuarios, BorderLayout.WEST);
 
         JPanel jpConfigura = new JPanel();
         jpConfigura.setBorder(BorderFactory.createTitledBorder("Configuração"));
@@ -279,20 +279,19 @@ public class Tela extends JFrame {
         jpConfigura.add(new JLabel("Vitórias:"));
         tfVitorias = new JTextField(5);
         jpConfigura.add(tfVitorias);
+
         JButton btnEditar = new JButton("Editar");
         btnEditar.setPreferredSize(new Dimension(90, 20));
         jpConfigura.add(btnEditar);
-
         btnEditar.addActionListener(new EditarLista(this, frame));
 
-        JButton jbPassar = new JButton("Voltar");
-        jbPassar.setPreferredSize(new Dimension(500, 25));
 
-        frame.add(jpUsuarios, BorderLayout.WEST);
-        frame.add(jpVitorias, BorderLayout.CENTER);
-        frame.add(jpConfigura, BorderLayout.EAST);
-        frame.add(jbPassar, BorderLayout.SOUTH);
+        JButton jbPassar = new JButton("Voltar");
+        frame.add(jbPassar, BorderLayout.PAGE_END);
+        painel.add(jpConfigura, BorderLayout.EAST);
+        frame.add(painel);
         frame.setVisible(true);
+
         jbPassar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

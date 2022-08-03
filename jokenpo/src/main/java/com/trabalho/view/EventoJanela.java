@@ -3,8 +3,10 @@ import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
+import com.trabalho.Usuario;
 import com.trabalho.util.*;
 
 
