@@ -1,9 +1,10 @@
 package com.trabalho;
 // Rafael de Oliveira Zimbrão - 202165124A
+
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
 
-public abstract class Jogador implements Comparable<Jogador>{
+public abstract class Jogador implements Comparable<Jogador> {
     private String nome;
     private static int nJogadores;
     private boolean ehBot;
@@ -12,25 +13,25 @@ public abstract class Jogador implements Comparable<Jogador>{
 
     public abstract int selecionaJogada();
 
-
     public String getNome() {
         return nome;
     }
 
-    public Jogador(String x){
+    public Jogador(String x) {
         this.nome = x;
         nJogadores++;
         this.nVitorias = 0;
     }
-    public static int getnJogadores(){
+
+    public static int getnJogadores() {
         return nJogadores;
     }
 
-    public void setId(int x){
-        this.id=x;
+    public void setId(int x) {
+        this.id = x;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
@@ -46,7 +47,7 @@ public abstract class Jogador implements Comparable<Jogador>{
         return nVitorias;
     }
 
-    public void atualizaNumVitorias(){
+    public void atualizaNumVitorias() {
         this.nVitorias++;
     }
 
@@ -65,4 +66,3 @@ public abstract class Jogador implements Comparable<Jogador>{
     }
 
 }
-

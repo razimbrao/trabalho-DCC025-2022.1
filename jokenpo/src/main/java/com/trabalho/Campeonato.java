@@ -20,18 +20,11 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import net.datafaker.Faker;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
@@ -41,7 +34,6 @@ public class Campeonato {
     private int nJogadores;
     private int indexPartidas;
     private boolean temUsuario;
-    private boolean temAdm;
     private Partida partidaFinal;
     private Jogador campeao;
     private Tela tela;
@@ -75,7 +67,7 @@ public class Campeonato {
         this.nJogadores++;
         int id = this.nJogadores - 1;
         x.setId(id);
-        //se Jogador for Usuario, adiciona na listaVitorias
+        // se Jogador for Usuario, adiciona na listaVitorias
         if (x instanceof Usuario) {
             this.listaVitorias.add((Usuario) x);
         }
@@ -123,7 +115,7 @@ public class Campeonato {
         }
     }
 
-    public void ordenaListaVitorias(){
+    public void ordenaListaVitorias() {
         Collections.sort(listaVitorias);
     }
 
@@ -240,10 +232,6 @@ public class Campeonato {
                 break;
             case 0:
                 this.campeao = resolvePartida(partidaFinal);
-                if(temAdm == true)
-                    this.configuraTelaVitoriasAdm();
-                else
-                    tela.imprimeTelaVitorias();
                 break;
             default:
                 break;
@@ -252,11 +240,7 @@ public class Campeonato {
 
     public String recebeNome() {
         String nome;
-        if(this.temAdm == true)
-            nome = JOptionPane.showInputDialog("Insira o nome do administrador:");
-        else
-            nome = JOptionPane.showInputDialog("Insira o nome do jogador:");
-
+        nome = JOptionPane.showInputDialog("Insira o nome do jogador:");
         try {
 
             if (nome.length() < 2) {
@@ -269,22 +253,6 @@ public class Campeonato {
         }
 
         return nome;
-    }
-
-    public String recebeSenhaAdm(){
-        String senha = JOptionPane.showInputDialog("Insira a senha de administrador:");;
-
-        try{
-            if(!senha.equals("Gleiph")){
-                throw new SenhaAdmInvalida();
-            }
-        } catch (SenhaAdmInvalida ex){
-            JOptionPane.showMessageDialog(null, "ERRO: Senha de administrador incorreta.", "Erro",
-                    JOptionPane.WARNING_MESSAGE);
-            senha = recebeSenhaAdm();
-        }
-
-        return senha;
     }
 
     // ------------------ TELAS ---------------------------------- //
@@ -388,83 +356,6 @@ public class Campeonato {
         timer.start();
     }
 
-    public void configuraTelaVitoriasAdm(){
-        ordenaListaVitorias();
-        JFrame frame = new JFrame("Vitórias");
-        frame.setSize(500, 380); //500, 380
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-
-        JPanel jpJogadores = new JPanel();
-        jpJogadores.setBorder(BorderFactory.createTitledBorder("Jogadores"));
-        jpJogadores.setLayout(new BorderLayout());
-        jpJogadores.setPreferredSize(new Dimension(300, 355));
-
-        JList<String> listaJ;
-        DefaultListModel<String> model = new DefaultListModel<>();
-        for(Jogador jogador : listaVitorias){
-            model.addElement(jogador.getNome());
-        }
-        listaJ = new JList<>(model);
-        listaJ.setVisible(true);
-        jpJogadores.add(new JScrollPane(listaJ), BorderLayout.CENTER);
-
-
-        JPanel jpVitorias = new JPanel();
-        jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitórias"));
-        jpVitorias.setLayout(new BorderLayout());
-        jpVitorias.setPreferredSize(new Dimension(75, 355)); //185, 355
-
-        JList<Integer> listaV;
-        DefaultListModel<Integer> model2 = new DefaultListModel<>();
-        for(Jogador jogador : listaVitorias){
-            model2.addElement(jogador.getnVitorias());
-        }
-        listaV = new JList<>(model2);
-        listaV.setVisible(true);
-        jpVitorias.add(new JScrollPane(listaV), BorderLayout.CENTER);
-
-
-        JPanel jpConfigura = new JPanel();
-        jpConfigura.setBorder(BorderFactory.createTitledBorder("Configuração"));
-        jpConfigura.setLayout(new FlowLayout());
-        jpConfigura.setPreferredSize(new Dimension(100, 355));
-        jpConfigura.add(new JLabel("Vitórias:"));
-        JTextField tfVitorias = new JTextField(5);
-        jpConfigura.add(tfVitorias);
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setPreferredSize(new Dimension(90, 20));
-        jpConfigura.add(btnEditar);
-
-/*         btnEditar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ListModel<Integer> model;
-                model = listaV.getModel();
-                Jogador jogador = model.getElementAt(jpVitorias.getLastIndex());
-                jogador.setnVitorias(frame.tfVitorias.getText());
-
-                frame.repaint();
-            }
-        }); */
-
-        JButton jbPassar = new JButton("Próximo");
-        jbPassar.setPreferredSize(new Dimension(500, 25));
-
-        frame.add(jpJogadores, BorderLayout.WEST);
-        frame.add(jpVitorias, BorderLayout.CENTER);
-        frame.add(jpConfigura, BorderLayout.EAST);
-        frame.add(jbPassar, BorderLayout.SOUTH);
-        frame.setVisible(true);
-        jbPassar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
-                mensagemVencedorFinal();
-            }
-        });
-    }
-
     public void telaFinal() {
         JFrame frame = new JFrame("Chaveamento - FINAL");
         frame.setSize(800, 400);
@@ -493,7 +384,7 @@ public class Campeonato {
         asaE.setEditable(false);
         asaD.setFont(new Font("Arial", 0, 25));
         asaD.setEditable(false);
-        asaE.setText("ASA ESQUERDA \n"+ asaEsquerda.get(0).getVencedor().getNome());
+        asaE.setText("ASA ESQUERDA \n" + asaEsquerda.get(0).getVencedor().getNome());
         asaE.setMargin(new Insets(80, 160, 25, 25));
         painelAsas.add(asaE, BorderLayout.CENTER);
         asaD.setText("ASA DIREITA \n" + asaDireita.get(0).getVencedor().getNome());

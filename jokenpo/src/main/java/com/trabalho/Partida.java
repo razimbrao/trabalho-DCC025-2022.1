@@ -295,8 +295,10 @@ public class Partida {
             j2.atualizaNumVitorias();
         }
 
-/*         System.out.println("O vencedor eh " + vencedor.getNome());
-        imprimePlacar(); */
+        /*
+         * System.out.println("O vencedor eh " + vencedor.getNome());
+         * imprimePlacar();
+         */
 
         return vencedor;
     }
