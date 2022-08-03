@@ -2,6 +2,7 @@ package com.trabalho;
 
 import javax.swing.JOptionPane;
 import com.trabalho.view.Tela;
+
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
@@ -30,7 +31,7 @@ public final class App {
 
     public static void main(String[] args) {
         Tela tela = new Tela();
-        while(true){
+        while (true) {
             while (!tela.getJogoComecou()) {
                 try {
                     Thread.sleep(1000);
@@ -38,8 +39,30 @@ public final class App {
                     e.printStackTrace();
                 }
             }
-            if(tela.getJogoComecou())
+            if (tela.getJogoComecou())
                 comecarJogo(tela);
         }
     }
 }
+
+/*
+ * public static void main(String[] args) {
+ * JOptionPane.showMessageDialog(null, "Bem Vindo ao Campeonato!",
+ * "Pedra, Papel, Tesoura, Lagarto e Spock!", JOptionPane.INFORMATION_MESSAGE,
+ * null);
+ * String[] opcoesTamanho = { "Semifinal", "Quartas de final",
+ * "Oitavas de final" };
+ * int tamanho = JOptionPane.showOptionDialog(null,
+ * "Selecione o tamanho do campeonato desejado:",
+ * "Tamanho da partida", JOptionPane.DEFAULT_OPTION,
+ * JOptionPane.INFORMATION_MESSAGE, null, opcoesTamanho,
+ * opcoesTamanho[0]);
+ *
+ * Campeonato camp = new Campeonato((int) Math.pow(2, (tamanho + 1)), tela);
+ * camp.insereJogadores();
+ * camp.inserePartidas();
+ * camp.chaveamento();
+ * tela.setJogoComecou(false);
+ * enviarListaVitorias(tela, camp);
+ * }
+ */
