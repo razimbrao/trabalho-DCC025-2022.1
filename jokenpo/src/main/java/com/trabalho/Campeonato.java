@@ -36,6 +36,7 @@ public class Campeonato {
     private int nJogadores;
     private int indexPartidas;
     private boolean temUsuario;
+    private boolean temAdm;
     private Partida partidaFinal;
 
     private List<Jogador> listaJogadores = new ArrayList<>();
@@ -50,8 +51,16 @@ public class Campeonato {
         String[] opcoesJogo = { "Simular", "Jogar" };
         int opcaoJogo = JOptionPane.showOptionDialog(null, "Selecione o modo de jogo:", "Modo de Jogo",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesJogo, opcoesJogo[1]);
-        if (opcaoJogo == 1)
+        if (opcaoJogo == 1){
             this.temUsuario = true;
+            String[] opcoesUsuario = { "Jogador", "Administrador" };
+            int opcaoUsuario = JOptionPane.showOptionDialog(null, "Selecione o tipo de usuário:", "Escolha de Usuário",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUsuario, opcoesUsuario[1]);
+            if(opcaoUsuario == 1)
+                this.temAdm = true;
+            else
+                this.temAdm = false;
+        }
         else
             this.temUsuario = false;
     }
@@ -81,9 +90,15 @@ public class Campeonato {
             i = 1;
 
             nome = this.recebeNome();
-
-            vetJogador[i] = new Usuario(nome);
-            addJogador(vetJogador[i]);
+            if(temAdm == true){
+                vetJogador[i] = new Administrador(nome);
+                String senha = this.recebeSenhaAdm();
+                addJogador(vetJogador[i]);
+            }
+            else{
+                vetJogador[i] = new Usuario(nome);
+                addJogador(vetJogador[i]);
+            }
         }
 
         for (; i < vetJogador.length; i++) {
@@ -231,7 +246,12 @@ public class Campeonato {
     }
 
     public String recebeNome() {
-        String nome = JOptionPane.showInputDialog("Insira o nome do usuário:");
+        String nome;
+        if(this.temAdm == true)
+            nome = JOptionPane.showInputDialog("Insira o nome do administrador:");
+        else
+            nome = JOptionPane.showInputDialog("Insira o nome do jogador:");
+        
         try {
 
             if (nome.length() < 2) {
@@ -244,6 +264,22 @@ public class Campeonato {
         }
 
         return nome;
+    }
+    
+    public String recebeSenhaAdm(){
+        String senha = JOptionPane.showInputDialog("Insira a senha de administrador:");;
+        
+        try{
+            if(!senha.equals("Gleiph")){
+                throw new SenhaAdmInvalida();
+            }
+        } catch (SenhaAdmInvalida ex){
+            JOptionPane.showMessageDialog(null, "ERRO: Senha de administrador incorreta.", "Erro",
+                    JOptionPane.WARNING_MESSAGE);
+            senha = recebeSenhaAdm();
+        }
+        
+        return senha;
     }
 
     // ------------------ TELAS ---------------------------------- //

@@ -6,15 +6,15 @@ package com.trabalho;
 
 /**
  *
- * @author lilik
+ * @author Usuário
  */
 
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
-public class NomeUsuarioInvalido extends Exception {
-
-    public NomeUsuarioInvalido() {
+public class SenhaAdmInvalida extends Exception{
+    
+    public SenhaAdmInvalida(){
     }
-
+    
 }
