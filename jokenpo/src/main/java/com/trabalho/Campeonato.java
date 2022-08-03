@@ -37,6 +37,7 @@ public class Campeonato {
     private int indexPartidas;
     private boolean temUsuario;
     private Partida partidaFinal;
+    private Jogador campeao;
 
     private List<Jogador> listaJogadores = new ArrayList<>();
     private List<Partida> listaPartidas = new ArrayList<>();
@@ -222,8 +223,8 @@ public class Campeonato {
                 chaveamento();
                 break;
             case 0:
-                Jogador campeao = resolvePartida(partidaFinal);
-                this.imprimeTelaVitorias(campeao);
+                this.campeao = resolvePartida(partidaFinal);
+                this.imprimeTelaVitorias();
                 break;
             default:
                 break;
@@ -338,7 +339,7 @@ public class Campeonato {
         timer.start();
     }
 
-    public void imprimeTelaVitorias(Jogador campeao){
+    public void imprimeTelaVitorias(){
         ordenaListaVitorias();
         JFrame frame = new JFrame("Vitórias");
         frame.setSize(500, 380);
@@ -386,9 +387,9 @@ public class Campeonato {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                mensagemVencedorFinal(campeao);
             }
         });
+        //mensagemVencedorFinal(campeao);
     }
 
     public void telaFinal() {
