@@ -31,7 +31,7 @@ public final class App {
 
     public static void main(String[] args) {
         Tela tela = new Tela();
-        while (true) {
+         while (true) {
             while (!tela.getJogoComecou()) {
                 try {
                     Thread.sleep(1000);
@@ -41,28 +41,9 @@ public final class App {
             }
             if (tela.getJogoComecou())
                 comecarJogo(tela);
+            tela.setJogoComecou(false);
         }
-    }
-}
 
-/*
- * public static void main(String[] args) {
- * JOptionPane.showMessageDialog(null, "Bem Vindo ao Campeonato!",
- * "Pedra, Papel, Tesoura, Lagarto e Spock!", JOptionPane.INFORMATION_MESSAGE,
- * null);
- * String[] opcoesTamanho = { "Semifinal", "Quartas de final",
- * "Oitavas de final" };
- * int tamanho = JOptionPane.showOptionDialog(null,
- * "Selecione o tamanho do campeonato desejado:",
- * "Tamanho da partida", JOptionPane.DEFAULT_OPTION,
- * JOptionPane.INFORMATION_MESSAGE, null, opcoesTamanho,
- * opcoesTamanho[0]);
- *
- * Campeonato camp = new Campeonato((int) Math.pow(2, (tamanho + 1)), tela);
- * camp.insereJogadores();
- * camp.inserePartidas();
- * camp.chaveamento();
- * tela.setJogoComecou(false);
- * enviarListaVitorias(tela, camp);
- * }
- */
+    }
+
+}

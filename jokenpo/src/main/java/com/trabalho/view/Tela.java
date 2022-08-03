@@ -18,6 +18,31 @@ public class Tela extends JFrame {
     private boolean jogoComecou = false;
     private List<Usuario> listaVitorias = new ArrayList<Usuario>();
     private List<Usuario> listaAux;
+    private boolean temAdm;
+    JList<Usuario> listaUsuarios;
+    JList<String> listaJ;
+    JList<Integer> listaV;
+    private int lastIndex;
+    private JTextField tfVitorias;
+
+    public JTextField getTfVitorias() {
+        return tfVitorias;
+    }
+    public void setTfVitorias(JTextField tfVitorias) {
+        this.tfVitorias = tfVitorias;
+    }
+
+    public int getLastIndex() {
+        return lastIndex;
+    }
+
+    public void setLastIndex(int lastIndex) {
+        this.lastIndex = lastIndex;
+    }
+
+    public JList<Integer> getListaV() {
+        return listaV;
+    }
 
     public boolean getJogoComecou() {
         return jogoComecou;
@@ -62,6 +87,41 @@ public class Tela extends JFrame {
     }
 
     public Tela() {
+        this.lastIndex = 0;
+        OpcoesLogin();
+        if (this.temAdm) {
+            recebeSenhaAdm();
+        }
+
+        telaMenu();
+    }
+
+    public void OpcoesLogin() {
+        String[] opcoesUsuario = { "Jogador", "Administrador" };
+        int opcaoUsuario = JOptionPane.showOptionDialog(null, "Selecione o tipo de usuário:", "Escolha de Usuário",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUsuario, opcoesUsuario[1]);
+        if (opcaoUsuario == 1)
+            this.temAdm = true;
+        else
+            this.temAdm = false;
+    }
+
+    public void recebeSenhaAdm() {
+        String senha = JOptionPane.showInputDialog("Insira a senha de administrador:");
+        ;
+
+        try {
+            if (!senha.equals("Gleiph")) {
+                throw new SenhaAdmInvalida();
+            }
+        } catch (SenhaAdmInvalida ex) {
+            JOptionPane.showMessageDialog(null, "ERRO: Senha de administrador incorreta.", "Erro",
+                    JOptionPane.WARNING_MESSAGE);
+            recebeSenhaAdm();
+        }
+    }
+
+    public void telaMenu() {
         setTitle("Jokenpo");
         setSize(600, 400);
         setLocationRelativeTo(null);
@@ -106,7 +166,10 @@ public class Tela extends JFrame {
 
         btnVitorias.addActionListener(e -> {
             setVisible(false);
-            imprimeTelaVitorias();
+            if (temAdm)
+                configuraTelaVitoriasAdm();
+            else
+                imprimeTelaVitorias();
         });
 
         btnSair.addActionListener(e -> {
@@ -130,7 +193,6 @@ public class Tela extends JFrame {
         jpUsuarios.setLayout(new BorderLayout());
         jpUsuarios.setPreferredSize(new Dimension(300, 355));
 
-        JList<String> listaJ;
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Usuario usuario : listaVitorias) {
             model.addElement(usuario.getNome());
@@ -144,7 +206,6 @@ public class Tela extends JFrame {
         jpVitorias.setLayout(new BorderLayout());
         jpVitorias.setPreferredSize(new Dimension(185, 355));
 
-        JList<Integer> listaV;
         DefaultListModel<Integer> model2 = new DefaultListModel<>();
         for (Usuario usuario : listaVitorias) {
             model2.addElement(usuario.getnVitorias());
@@ -158,6 +219,79 @@ public class Tela extends JFrame {
         frame.add(jpUsuarios, BorderLayout.WEST);
         frame.add(jpVitorias, BorderLayout.EAST);
         frame.add(jbPassar, BorderLayout.PAGE_END);
+        frame.setVisible(true);
+        jbPassar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                setVisible(true);
+            }
+        });
+    }
+
+    public void configuraTelaVitoriasAdm() {
+        JFrame frame = new JFrame("Vitórias");
+        frame.setSize(500, 380); // 500, 380
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+
+        JPanel jpUsuarios = new JPanel();
+        jpUsuarios.setBorder(BorderFactory.createTitledBorder("Jogadores"));
+        jpUsuarios.setLayout(new BorderLayout());
+        jpUsuarios.setPreferredSize(new Dimension(300, 355));
+
+        DefaultListModel<Usuario> model = new DefaultListModel<>();
+        for (Usuario usuario : listaVitorias) {
+            model.addElement(usuario);
+        }
+        listaUsuarios = new JList<>(model);
+
+        DefaultListModel<String> modelNome = new DefaultListModel<>();
+
+        for (Usuario usuario : listaVitorias) {
+            modelNome.addElement(usuario.getNome());
+        }
+
+        listaJ = new JList<>(modelNome);
+        listaJ.setVisible(true);
+        jpUsuarios.add(new JScrollPane(listaJ), BorderLayout.CENTER);
+
+        JPanel jpVitorias = new JPanel();
+        jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitórias"));
+        jpVitorias.setLayout(new BorderLayout());
+        jpVitorias.setPreferredSize(new Dimension(75, 355));
+
+        DefaultListModel<Integer> model2 = new DefaultListModel<>();
+        for (Jogador jogador : listaVitorias) {
+            model2.addElement(jogador.getnVitorias());
+        }
+        listaV = new JList<>(model2);
+        listaV.setVisible(true);
+        listaV.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listaV.addListSelectionListener(new TratarLista(this));
+
+        jpVitorias.add(new JScrollPane(listaV), BorderLayout.CENTER);
+
+        JPanel jpConfigura = new JPanel();
+        jpConfigura.setBorder(BorderFactory.createTitledBorder("Configuração"));
+        jpConfigura.setLayout(new FlowLayout());
+        jpConfigura.setPreferredSize(new Dimension(100, 355));
+        jpConfigura.add(new JLabel("Vitórias:"));
+        tfVitorias = new JTextField(5);
+        jpConfigura.add(tfVitorias);
+        JButton btnEditar = new JButton("Editar");
+        btnEditar.setPreferredSize(new Dimension(90, 20));
+        jpConfigura.add(btnEditar);
+
+        btnEditar.addActionListener(new EditarLista(this, frame));
+
+        JButton jbPassar = new JButton("Voltar");
+        jbPassar.setPreferredSize(new Dimension(500, 25));
+
+        frame.add(jpUsuarios, BorderLayout.WEST);
+        frame.add(jpVitorias, BorderLayout.CENTER);
+        frame.add(jpConfigura, BorderLayout.EAST);
+        frame.add(jbPassar, BorderLayout.SOUTH);
         frame.setVisible(true);
         jbPassar.addActionListener(new ActionListener() {
             @Override

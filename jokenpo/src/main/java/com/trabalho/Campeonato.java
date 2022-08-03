@@ -59,16 +59,8 @@ public class Campeonato {
         String[] opcoesJogo = { "Simular", "Jogar" };
         int opcaoJogo = JOptionPane.showOptionDialog(null, "Selecione o modo de jogo:", "Modo de Jogo",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesJogo, opcoesJogo[1]);
-        if (opcaoJogo == 1){
+        if (opcaoJogo == 1)
             this.temUsuario = true;
-            String[] opcoesUsuario = { "Jogador", "Administrador" };
-            int opcaoUsuario = JOptionPane.showOptionDialog(null, "Selecione o tipo de usuário:", "Escolha de Usuário",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUsuario, opcoesUsuario[1]);
-            if(opcaoUsuario == 1)
-                this.temAdm = true;
-            else
-                this.temAdm = false;
-        }
         else
             this.temUsuario = false;
         this.tela = tela;
@@ -107,15 +99,9 @@ public class Campeonato {
             i = 1;
 
             nome = this.recebeNome();
-            if(temAdm == true){
-                vetJogador[i] = new Administrador(nome);
-                String senha = this.recebeSenhaAdm();
-                addJogador(vetJogador[i]);
-            }
-            else{
-                vetJogador[i] = new Usuario(nome);
-                addJogador(vetJogador[i]);
-            }
+
+            vetJogador[i] = new Usuario(nome);
+            addJogador(vetJogador[i]);
         }
 
         for (; i < vetJogador.length; i++) {
@@ -254,11 +240,11 @@ public class Campeonato {
                 chaveamento();
                 break;
             case 0:
-                Jogador campeao = resolvePartida(partidaFinal);
+                this.campeao = resolvePartida(partidaFinal);
                 if(temAdm == true)
-                    this.configuraTelaVitoriasAdm(campeao);
+                    this.configuraTelaVitoriasAdm();
                 else
-                    this.imprimeTelaVitorias();
+                    tela.imprimeTelaVitorias();
                 break;
             default:
                 break;
@@ -403,61 +389,7 @@ public class Campeonato {
         timer.start();
     }
 
-    public void imprimeTelaVitorias(){
-        JFrame frame = new JFrame("Vitórias");
-        frame.setSize(500, 380);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-
-        JPanel jpJogadores = new JPanel();
-        jpJogadores.setBorder(BorderFactory.createTitledBorder("Jogadores"));
-        jpJogadores.setLayout(new BorderLayout());
-        jpJogadores.setPreferredSize(new Dimension(300, 355));
-
-        JList<String> listaJ;
-        DefaultListModel<String> model = new DefaultListModel<>();
-        for(Jogador jogador : listaVitorias){
-            model.addElement(jogador.getNome());
-        }
-        listaJ = new JList<>(model);
-        listaJ.setVisible(true);
-        jpJogadores.add(new JScrollPane(listaJ), BorderLayout.CENTER);
-
-
-        JPanel jpVitorias = new JPanel();
-        jpVitorias.setBorder(BorderFactory.createTitledBorder("Vitórias"));
-        jpVitorias.setLayout(new BorderLayout());
-        jpVitorias.setPreferredSize(new Dimension(185, 355));
-
-        JList<Integer> listaV;
-        DefaultListModel<Integer> model2 = new DefaultListModel<>();
-        for(Jogador jogador : listaVitorias){
-            model2.addElement(jogador.getnVitorias());
-        }
-        listaV = new JList<>(model2);
-        listaV.setVisible(true);
-        jpVitorias.add(new JScrollPane(listaV), BorderLayout.CENTER);
-
-
-        JButton jbPassar = new JButton("Próximo");
-
-
-        frame.add(jpJogadores, BorderLayout.WEST);
-        frame.add(jpVitorias, BorderLayout.EAST);
-        frame.add(jbPassar, BorderLayout.PAGE_END);
-        frame.setVisible(true);
-        jbPassar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
-                mensagemVencedorFinal();
-            }
-        });
-    }
-
-
-
-    public void configuraTelaVitoriasAdm(Jogador campeao){
+    public void configuraTelaVitoriasAdm(){
         ordenaListaVitorias();
         JFrame frame = new JFrame("Vitórias");
         frame.setSize(500, 380); //500, 380
