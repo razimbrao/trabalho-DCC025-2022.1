@@ -9,28 +9,31 @@ public final class App {
     private App() {
     }
 
-    public static void comecarJogo() {
+    public static void comecarJogo(Tela tela) {
         String[] opcoesTamanho = { "Semifinal", "Quartas de final", "Oitavas de final" };
         int tamanho = JOptionPane.showOptionDialog(null, "Selecione o tamanho do campeonato desejado:",
                 "Tamanho da partida", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesTamanho,
                 opcoesTamanho[0]);
 
-        Campeonato camp = new Campeonato((int) Math.pow(2, (tamanho + 1)));
+        Campeonato camp = new Campeonato((int) Math.pow(2, (tamanho + 1)), tela);
         camp.insereJogadores();
         camp.inserePartidas();
         camp.chaveamento();
+        tela.setJogoComecou(false);
     }
     public static void main(String[] args) {
         Tela tela = new Tela();
         //loop ate for verdadeiro
-        while (tela.getJogoComecou() == false) {
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        while(true){
+            while (!tela.getJogoComecou()) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+            if(tela.getJogoComecou())
+                comecarJogo(tela);
         }
-        if(tela.getJogoComecou())
-            comecarJogo();
     }
 }

@@ -1,0 +1,58 @@
+package com.trabalho.view;
+import java.awt.event.WindowListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
+import com.trabalho.*;
+import com.trabalho.util.*;
+
+
+public class EventoJanela implements WindowListener {
+
+    Tela tela;
+
+    public EventoJanela(Tela tela) {
+        this.tela = tela;
+    }
+
+    @Override
+    public void windowOpened(java.awt.event.WindowEvent e) {
+        try {
+            String lerArquivo = Arquivo.lerArquivo("dados");
+            List<Jogador> listaVitorias = JSON.fromJSONArray(lerArquivo);
+
+        } catch (FileNotFoundException ex) {
+        }
+    }
+
+    @Override
+    public void windowClosing(java.awt.event.WindowEvent e) {
+        //transforma listaVitorias em json e fechar arquivo
+        try {
+            String json = JSON.toJSON(tela.getListaVitorias());
+            Arquivo.escreverArquivo("dados", json);
+        } catch (IOException ex) {
+        }
+    }
+
+    @Override
+    public void windowClosed(java.awt.event.WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(java.awt.event.WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(java.awt.event.WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(java.awt.event.WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated(java.awt.event.WindowEvent e) {
+    }
+}
+

@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
+
+import com.trabalho.view.Tela;
+
 import java.awt.Insets;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
@@ -38,6 +41,7 @@ public class Campeonato {
     private boolean temUsuario;
     private Partida partidaFinal;
     private Jogador campeao;
+    private Tela tela;
 
     private List<Jogador> listaJogadores = new ArrayList<>();
     private List<Partida> listaPartidas = new ArrayList<>();
@@ -46,7 +50,7 @@ public class Campeonato {
     private List<Partida> asaDireita = new ArrayList<>();
     private List<Jogador> listaVitorias = new ArrayList<>();
 
-    public Campeonato(int n) { // informa qual o tamanho do campeonato
+    public Campeonato(int n, Tela tela) { // informa qual o tamanho do campeonato
         this.tamanho = n;
         String[] opcoesJogo = { "Simular", "Jogar" };
         int opcaoJogo = JOptionPane.showOptionDialog(null, "Selecione o modo de jogo:", "Modo de Jogo",
@@ -55,6 +59,7 @@ public class Campeonato {
             this.temUsuario = true;
         else
             this.temUsuario = false;
+        this.tela = tela;
     }
 
     public void addJogador(Jogador x) { // add o jogador na listaJogadores
@@ -247,9 +252,14 @@ public class Campeonato {
         return nome;
     }
 
+    public List<Jogador> getListaVitorias() {
+        ordenaListaVitorias();
+        return listaVitorias;
+    }
+
     // ------------------ TELAS ---------------------------------- //
 
-    public void mensagemVencedorFinal(Jogador campeao) {
+    public void mensagemVencedorFinal() {
         JFrame frame = new JFrame("Vencedor");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -281,6 +291,15 @@ public class Campeonato {
 
         frame.setVisible(true);
 
+        JButton sair = new JButton("Sair");
+        painel.add(sair, BorderLayout.PAGE_END);
+        sair.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                tela.setVisible(true);
+            }
+        });
     }
 
     public void telaChaveamento(String fase) {
@@ -340,7 +359,6 @@ public class Campeonato {
     }
 
     public void imprimeTelaVitorias(){
-        ordenaListaVitorias();
         JFrame frame = new JFrame("Vitórias");
         frame.setSize(500, 380);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -387,9 +405,9 @@ public class Campeonato {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
+                mensagemVencedorFinal();
             }
         });
-        //mensagemVencedorFinal(campeao);
     }
 
     public void telaFinal() {
