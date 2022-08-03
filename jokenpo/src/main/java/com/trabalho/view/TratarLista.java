@@ -5,11 +5,6 @@ import javax.swing.event.ListSelectionListener;
 
 import com.trabalho.Usuario;
 
-import javax.swing.JList;
-/**
- *
- * @author gleiph
- */
 public class TratarLista implements ListSelectionListener {
 
     Tela tela;

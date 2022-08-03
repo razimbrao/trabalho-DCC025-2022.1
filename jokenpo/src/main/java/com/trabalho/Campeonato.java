@@ -32,7 +32,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 // Rafael de Oliveira Zimbrão - 202165124A
 // Livia Ribeiro Pessamilio - 202165088A
 // João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
