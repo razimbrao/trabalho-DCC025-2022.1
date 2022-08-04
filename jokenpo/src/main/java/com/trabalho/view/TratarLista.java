@@ -19,7 +19,6 @@ public class TratarLista implements ListSelectionListener {
 
         if (firstIndex != -1) {
             Usuario elementAt = tela.getListaUsuarios().getModel().getElementAt(firstIndex);
-            tela.getTfNome().setText(elementAt.getNome());
             tela.getTfVitorias().setText(String.valueOf(elementAt.getnVitorias()));
             tela.setLastIndex(firstIndex);
         }

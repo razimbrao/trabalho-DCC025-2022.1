@@ -1,5 +1,6 @@
 package com.trabalho;
 
+import com.trabalho.view.Tela;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -12,9 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
-
-import com.trabalho.view.Tela;
-
 import java.awt.Insets;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionEvent;
@@ -67,7 +65,7 @@ public class Campeonato {
         this.nJogadores++;
         int id = this.nJogadores - 1;
         x.setId(id);
-        // se Jogador for Usuario, adiciona na listaVitorias
+        //se Jogador for Usuario, adiciona na listaVitorias
         if (x instanceof Usuario) {
             this.listaVitorias.add((Usuario) x);
         }
@@ -115,7 +113,7 @@ public class Campeonato {
         }
     }
 
-    public void ordenaListaVitorias() {
+    public void ordenaListaVitorias(){
         Collections.sort(listaVitorias);
     }
 
@@ -232,6 +230,7 @@ public class Campeonato {
                 break;
             case 0:
                 this.campeao = resolvePartida(partidaFinal);
+                tela.setVisible(true);
                 break;
             default:
                 break;
@@ -241,6 +240,7 @@ public class Campeonato {
     public String recebeNome() {
         String nome;
         nome = JOptionPane.showInputDialog("Insira o nome do jogador:");
+
         try {
 
             if (nome.length() < 2) {
@@ -356,6 +356,7 @@ public class Campeonato {
         timer.start();
     }
 
+
     public void telaFinal() {
         JFrame frame = new JFrame("Chaveamento - FINAL");
         frame.setSize(800, 400);
@@ -384,7 +385,7 @@ public class Campeonato {
         asaE.setEditable(false);
         asaD.setFont(new Font("Arial", 0, 25));
         asaD.setEditable(false);
-        asaE.setText("ASA ESQUERDA \n" + asaEsquerda.get(0).getVencedor().getNome());
+        asaE.setText("ASA ESQUERDA \n"+ asaEsquerda.get(0).getVencedor().getNome());
         asaE.setMargin(new Insets(80, 160, 25, 25));
         painelAsas.add(asaE, BorderLayout.CENTER);
         asaD.setText("ASA DIREITA \n" + asaDireita.get(0).getVencedor().getNome());

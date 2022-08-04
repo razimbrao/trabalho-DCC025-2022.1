@@ -294,12 +294,6 @@ public class Partida {
             this.perdedor = j1;
             j2.atualizaNumVitorias();
         }
-
-        /*
-         * System.out.println("O vencedor eh " + vencedor.getNome());
-         * imprimePlacar();
-         */
-
         return vencedor;
     }
 

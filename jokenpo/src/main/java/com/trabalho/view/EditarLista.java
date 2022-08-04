@@ -6,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.trabalho.Usuario;
 
+// Rafael de Oliveira Zimbrão - 202165124A
+// Livia Ribeiro Pessamilio - 202165088A
+// João Vitor Fernandes Ribeiro Carneiro Ramos - 202165076A
+
 public class EditarLista implements ActionListener{
 
     private Tela tela;
@@ -21,7 +25,6 @@ public class EditarLista implements ActionListener{
         ListModel<Usuario> model = this.tela.getListaUsuarios().getModel();
         Usuario usuario = model.getElementAt(tela.getLastIndex());
         int vitorias = Integer.parseInt(tela.getTfVitorias().getText());
-        System.out.println("entrou vit:" + vitorias);
         usuario.setnVitorias(vitorias);
         frame.repaint();
     }
