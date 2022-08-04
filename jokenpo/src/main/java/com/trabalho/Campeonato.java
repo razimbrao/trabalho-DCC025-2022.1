@@ -60,6 +60,10 @@ public class Campeonato {
         return listaVitorias;
     }
 
+    public boolean getTemUsuario() {
+        return temUsuario;
+    }
+
     public void addJogador(Jogador x) { // add o jogador na listaJogadores
         this.listaJogadores.add(x);
         this.nJogadores++;

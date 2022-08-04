@@ -21,7 +21,8 @@ public final class App {
         camp.inserePartidas();
         camp.chaveamento();
         tela.setJogoComecou(false);
-        enviarListaVitorias(tela, camp);
+        if(camp.getTemUsuario())
+            enviarListaVitorias(tela, camp);
     }
 
     public static void enviarListaVitorias(Tela tela, Campeonato camp) {
