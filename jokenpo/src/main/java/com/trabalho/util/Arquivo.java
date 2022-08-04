@@ -18,7 +18,7 @@ public class Arquivo {
         while(leitor.hasNextLine()){
             conteudo.append(leitor.nextLine()).append("\n");
         }
-        System.out.println("escrito: " + conteudo.toString());
+        System.out.println("Arquivo lido com sucesso!");
         leitor.close();
         return conteudo.toString();
     }
@@ -30,8 +30,8 @@ public class Arquivo {
             File arquivo = new File(caminho);
             FileWriter fwArquivo = new FileWriter(arquivo, false);
             BufferedWriter bwArquivo = new BufferedWriter(fwArquivo);
-            System.out.println("escrevendo: " + conteudo);
             bwArquivo.write(conteudo + "\n");
+            System.out.println("Arquivo salvo!");
             bwArquivo.close();
             fwArquivo.close();
         } catch (IOException e) {

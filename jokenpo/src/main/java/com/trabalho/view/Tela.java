@@ -19,15 +19,14 @@ import java.awt.event.ActionListener;
 public class Tela extends JFrame {
     private boolean jogoComecou = false;
     private List<Usuario> listaVitorias = new ArrayList<Usuario>();
-    private List<Usuario> listaAux;
+    private List<Usuario> listaAux = new ArrayList<Usuario>();
     private boolean temAdm;
-    JList<Usuario> listaUsuarios;
     private int lastIndex;
     private JTextField tfVitorias = new JTextField();
+    JList<Usuario> listaUsuarios;
 
     public JTextField getTfVitorias() {
         return tfVitorias;
-
     }
 
     public int getLastIndex() {
@@ -75,21 +74,17 @@ public class Tela extends JFrame {
 
     public void somaListas() {
         // concatenar listas
-        listaVitorias = new ArrayList<Usuario>();
+        boolean mesmoNome =false;
         for (Usuario usuario : listaVitorias) {
             if (usuario.getNome().equals(listaAux.get(0).getNome())) {
                 usuario.setnVitorias(usuario.getnVitorias() + listaAux.get(0).getnVitorias());
-            } else {
-                listaVitorias.add(listaAux.get(0));
-                break;
+                mesmoNome = true;
             }
         }
-
-        for (Usuario usuario : listaAux) {
-            listaVitorias.add(usuario);
+        if (!mesmoNome) {
+            listaVitorias.add(listaAux.get(0));
         }
     }
-
     public Tela() {
         this.lastIndex = 0;
         OpcoesLogin();
@@ -159,7 +154,6 @@ public class Tela extends JFrame {
 
         // leitura de arquivos
         this.addWindowListener(new EventoJanela(this));
-        // print listaVitorias
 
         // eventos dos botoes
         btnJogar.addActionListener(e -> {
