@@ -235,7 +235,6 @@ public class Campeonato {
             case 0:
                 this.campeao = resolvePartida(partidaFinal);
                 mensagemVencedorFinal();
-                tela.setVisible(true);
                 break;
             default:
                 break;
